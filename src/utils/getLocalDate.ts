@@ -1,6 +1,6 @@
 
 
-export function getLocalDate(dayOfTheWeek?: number) {
+export function getLocalDate(dayOfTheWeek?: number, monthIndex?: number) {
    const date = new Date();
    const monthes = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
    const days = ['воскресенье', 'понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота'];
@@ -9,7 +9,6 @@ export function getLocalDate(dayOfTheWeek?: number) {
       year: date.getFullYear(),
       month: date.getMonth() + 1,
       day: date.getDate(),
-      monthName: monthes[date.getMonth()],
       dayName: days[date.getDay()],
       dayNumberInWeek: date.getDay(),
       dayShortName: function() {
@@ -17,6 +16,13 @@ export function getLocalDate(dayOfTheWeek?: number) {
             return shortDays[dayOfTheWeek];
          } else {
             return shortDays[date.getDay()];
+         }
+      },
+      monthName: function () {
+         if (monthIndex !== undefined) {
+            return monthes[monthIndex];
+         } else {
+            return monthes[date.getMonth()];
          }
       },
       daysUntilMonday: function() {

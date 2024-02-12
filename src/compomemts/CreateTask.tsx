@@ -1,22 +1,25 @@
 import { Box, Button, Icon, Input, InputGroup, InputLeftElement, Stack } from "@chakra-ui/react";
 import { FC, ReactElement, useState } from "react";
 import { FaPencilAlt } from "react-icons/fa";
-import { ITask } from "../redux/types";
+import { IPlanedTaskDate, IPlanedTaskState, ITask } from "../redux/types";
 import { COMPLETED_LIST, IMPORTANT_LIST, MY_DAY_LIST, PLANED_LIST, TASKS_LIST } from "../constants/tasksListName";
 import { getLocalDate } from "../utils/getLocalDate";
 import { nanoid } from "nanoid";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../redux/store";
 import { addTaskInAllList, addTaskInCompletedList, addTaskInImportantList, addTaskInMyDayList, addTaskInPlanedList, addTaskInTasksList } from "../redux/slices/tasksSlice";
 import { ICreateTaskProps } from "./types";
 import { LiaCalendarSolid } from "react-icons/lia";
 import { PiRepeatLight } from "react-icons/pi";
 import { PlanedTaskMenu } from "./PlanedTaskMenu";
+import { setPlanedToTask } from "../redux/slices/planedTask";
 
 
 export const CreateTask: FC<ICreateTaskProps> = ({ listName }): ReactElement => {
 
    const dispatch: AppDispatch = useDispatch();
+
+   const planedTaskDate = useSelector((state: RootState) => state.planedTask.date);
    
    const [taskTitle, setTaskTitle] = useState('');
 
@@ -28,16 +31,12 @@ export const CreateTask: FC<ICreateTaskProps> = ({ listName }): ReactElement => 
          isComplete: false,
          isRepeat: false,
          isImportant: false,
-         date: {
-            year: getLocalDate().year,
-            month: getLocalDate().month,
-            day: getLocalDate().day,
-         },
+         date: planedTaskDate,
          list: {
             isAllList: true,
             isTasksList: (listName === TASKS_LIST) ? true : false,
             isMyDayList: (listName === MY_DAY_LIST) ? true : false,
-            isPlanedList: (listName === PLANED_LIST) ? true : false,
+            isPlanedList: (planedTaskDate) ? true : false,
             isCompletedList: (listName === COMPLETED_LIST) ? true : false,
             isImportantList: (listName === IMPORTANT_LIST) ? true : false,
          },
@@ -48,12 +47,16 @@ export const CreateTask: FC<ICreateTaskProps> = ({ listName }): ReactElement => 
       if (e.code === 'Enter') {
          addTaskToList(createTask());
          setTaskTitle('');
+
+         dispatch(setPlanedToTask(undefined))
       } 
    }
 
    function handleAddButton() {
       addTaskToList(createTask());
       setTaskTitle('');
+
+      dispatch(setPlanedToTask(undefined))
    }
 
    function addTaskToList(task: ITask) {
@@ -106,24 +109,14 @@ export const CreateTask: FC<ICreateTaskProps> = ({ listName }): ReactElement => 
                <Icon as={PiRepeatLight} boxSize={5} cursor={'pointer'} />
             </Stack>
             <Box>
-               {
-                  (taskTitle === '') ? 
-                     <Button size={'sm'}
-                        variant='outline'
-                        colorScheme={'blue'}
-                        isDisabled
-                     >
-                        Добавить
-                     </Button>
-                  : 
-                     <Button size={'sm'}
-                        variant='outline'
-                        colorScheme={'blue'}
-                        onClick={handleAddButton}
-                     >
-                        Добавить
-                     </Button>
-               }
+               <Button size={'sm'}
+                  variant='outline'
+                  colorScheme={'blue'}
+                  onClick={handleAddButton}
+                  isDisabled={taskTitle === '' ? true : false}
+               >
+                  Добавить
+               </Button>
             </Box>
          </Stack>
       </Box>

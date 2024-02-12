@@ -89,16 +89,14 @@ export const AddCompleteTask: FC<IAddCompleteTaskProps> = ({ task, listName }): 
          align={'center'}
          rounded={'full'}
          border={'1px solid tomato'}
-         boxSize={6}
+         boxSize={4}
          cursor={'pointer'}
          onClick={handleCheckbox}
       >
-         {
-            task.isComplete ? 
-               <Icon as={FaCheck} w={2} color={'tomato'} /> 
-            : <></>
-         }
-         
+         <Icon as={FaCheck}
+            w={2} 
+            color={task.isComplete ? 'tomato' : 'transparent'} 
+            _hover={{ color: 'tomato' }} /> 
       </Stack>
    )
 }

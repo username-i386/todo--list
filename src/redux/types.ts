@@ -17,7 +17,7 @@ export interface ITask {
       year: number
       month: number
       day: number
-   }
+   } | undefined
    list: {
       isMyDayList: boolean
       isImportantList: boolean
@@ -39,8 +39,9 @@ export interface ITasksState {
 //!Planed Task Slice------------------------------------------------------------------------------------------------------------------------------------
 
 export interface IPlanedTaskState {
-   date: IPlanedTaskDate | null
+   date: IPlanedTaskDate | undefined
 }
+
 export interface IPlanedTaskDate {
    year: number
    month: number

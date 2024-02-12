@@ -14,7 +14,7 @@ export const TodoTitle: FC<ITodoTitleProps> = ({ icon, title }): ReactElement =>
    const isMenuOpen = useSelector((state: RootState) => state.menuSlice.isMenuOpen);
 
    function formatedDate(): string {
-      return getLocalDate().dayName + ', ' + getLocalDate().day + ' ' + getLocalDate().monthName
+      return getLocalDate().dayName + ', ' + getLocalDate().day + ' ' + getLocalDate().monthName()
    }
    
    return (
