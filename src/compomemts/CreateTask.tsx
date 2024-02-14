@@ -1,18 +1,20 @@
 import { Box, Button, Icon, Input, InputGroup, InputLeftElement, Stack } from "@chakra-ui/react";
 import { FC, ReactElement, useState } from "react";
 import { FaPencilAlt } from "react-icons/fa";
-import { IPlanedTaskDate, IPlanedTaskState, ITask } from "../redux/types";
+import { IDate, IPlanedTaskState, ITask } from "../redux/types";
 import { COMPLETED_LIST, IMPORTANT_LIST, MY_DAY_LIST, PLANED_LIST, TASKS_LIST } from "../constants/tasksListName";
 import { getLocalDate } from "../utils/getLocalDate";
 import { nanoid } from "nanoid";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../redux/store";
-import { addTaskInAllList, addTaskInCompletedList, addTaskInImportantList, addTaskInMyDayList, addTaskInPlanedList, addTaskInTasksList } from "../redux/slices/tasksSlice";
+import { addTaskInAllList, addTaskInCompletedList, addTaskInImportantList, addTaskInMyDayList, addTaskInPlanedList, addTaskInRepeatList, addTaskInTasksList } from "../redux/slices/tasksSlice";
 import { ICreateTaskProps } from "./types";
 import { LiaCalendarSolid } from "react-icons/lia";
 import { PiRepeatLight } from "react-icons/pi";
 import { PlanedTaskMenu } from "./PlanedTaskMenu";
 import { setPlanedToTask } from "../redux/slices/planedTask";
+import { RepeatTaskMenu } from "./RepeatTaskMenu";
+import { setRepeatToTask } from "../redux/slices/repeatTask";
 
 
 export const CreateTask: FC<ICreateTaskProps> = ({ listName }): ReactElement => {
@@ -20,16 +22,18 @@ export const CreateTask: FC<ICreateTaskProps> = ({ listName }): ReactElement => 
    const dispatch: AppDispatch = useDispatch();
 
    const planedTaskDate = useSelector((state: RootState) => state.planedTask.date);
+   const repeatTask = useSelector((state: RootState) => state.repeatTask.repeatTask);
+
    
    const [taskTitle, setTaskTitle] = useState('');
 
    function createTask(): ITask {
-      return {
+      const task = {
          id: nanoid(),
          title: taskTitle,
          listName: listName,
          isComplete: false,
-         isRepeat: false,
+         repeat: repeatTask,
          isImportant: false,
          date: planedTaskDate,
          list: {
@@ -39,8 +43,10 @@ export const CreateTask: FC<ICreateTaskProps> = ({ listName }): ReactElement => 
             isPlanedList: (planedTaskDate) ? true : false,
             isCompletedList: (listName === COMPLETED_LIST) ? true : false,
             isImportantList: (listName === IMPORTANT_LIST) ? true : false,
+            isRepeatList: repeatTask.isRepeat
          },
       };
+      return task;
    }
 
    function handleKeyboardEnter(e: React.KeyboardEvent<HTMLInputElement>) {
@@ -48,7 +54,12 @@ export const CreateTask: FC<ICreateTaskProps> = ({ listName }): ReactElement => 
          addTaskToList(createTask());
          setTaskTitle('');
 
-         dispatch(setPlanedToTask(undefined))
+         dispatch(setPlanedToTask(undefined));
+         dispatch(setRepeatToTask({
+            isRepeat: false,
+            nextDateRepeat: undefined,
+            repeatVariant: '',
+         }))
       } 
    }
 
@@ -56,7 +67,12 @@ export const CreateTask: FC<ICreateTaskProps> = ({ listName }): ReactElement => 
       addTaskToList(createTask());
       setTaskTitle('');
 
-      dispatch(setPlanedToTask(undefined))
+      dispatch(setPlanedToTask(undefined));
+      dispatch(setRepeatToTask({
+         isRepeat: false,
+         nextDateRepeat: undefined,
+         repeatVariant: '',
+      }))
    }
 
    function addTaskToList(task: ITask) {
@@ -84,6 +100,10 @@ export const CreateTask: FC<ICreateTaskProps> = ({ listName }): ReactElement => 
          if (task.list.isTasksList) {
             dispatch(addTaskInTasksList(task));
          }
+
+         if (task.list.isRepeatList) {
+            dispatch(addTaskInRepeatList(task));
+         }
       }
    }
 
@@ -103,10 +123,9 @@ export const CreateTask: FC<ICreateTaskProps> = ({ listName }): ReactElement => 
             />
          </InputGroup>
          <Stack direction={'row'} justify={'space-between'} align={'center'} p={2}>
-            <Stack direction={'row'}>
+            <Stack direction={'row'} align={'center'}>
                <PlanedTaskMenu />
-               {/* <Icon as={LiaCalendarSolid} boxSize={5} cursor={'pointer'} /> */}
-               <Icon as={PiRepeatLight} boxSize={5} cursor={'pointer'} />
+               <RepeatTaskMenu />
             </Stack>
             <Box>
                <Button size={'sm'}
