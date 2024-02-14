@@ -11,7 +11,7 @@ export interface ITask {
    title: string
    listName: string
    isComplete: boolean
-   isRepeat: boolean
+   repeat: IRepeatTask
    isImportant: boolean
    date: {
       year: number
@@ -25,6 +25,7 @@ export interface ITask {
       isAllList: boolean
       isTasksList: boolean
       isCompletedList: boolean
+      isRepeatList: boolean
    }
 }
 export interface ITasksState {
@@ -34,18 +35,31 @@ export interface ITasksState {
    allList: ITask[]
    completedList: ITask[]
    tasksList: ITask[]
+   repeatList: ITask[]
 }
 
 //!Planed Task Slice------------------------------------------------------------------------------------------------------------------------------------
 
 export interface IPlanedTaskState {
-   date: IPlanedTaskDate | undefined
+   date: IDate | undefined
 }
 
-export interface IPlanedTaskDate {
+export interface IDate {
    year: number
    month: number
    day: number
+}
+
+//!Repeat Task Slice------------------------------------------------------------------------------------------------------------------------------------
+
+export interface IRepeatTaskState {
+   repeatTask: IRepeatTask
+}
+
+export interface IRepeatTask {
+   isRepeat: boolean
+   nextDateRepeat: IDate | undefined
+   repeatVariant: string,
 }
 
 //!------------------------------------------------------------------------------------------------------------------------------------

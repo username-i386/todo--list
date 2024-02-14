@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import menuReducer from "./slices/menuSlice";
 import tasksReducer from "./slices/tasksSlice";
 import planedTaskReducer from "./slices/planedTask";
+import repeatTaskReducer from "./slices/repeatTask";
 
 
 export const store = configureStore({
@@ -9,6 +10,7 @@ export const store = configureStore({
       menuSlice: menuReducer,
       tasksSLice: tasksReducer,
       planedTask: planedTaskReducer,
+      repeatTask: repeatTaskReducer,
    }
 })
 

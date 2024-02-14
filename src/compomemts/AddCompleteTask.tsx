@@ -24,6 +24,7 @@ export const AddCompleteTask: FC<IAddCompleteTaskProps> = ({ task, listName }): 
          isMyDayList: task.list.isMyDayList,
          isPlanedList: task.list.isPlanedList,
          isTasksList: task.list.isTasksList,
+         isRepeatList: task.list.isRepeatList,
       }
    })
 

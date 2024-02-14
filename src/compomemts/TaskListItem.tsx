@@ -11,6 +11,8 @@ import { LiaCalendarSolid } from "react-icons/lia";
 import { outputDeadline } from "../utils/outputDeadline";
 import { RootState } from "../redux/store";
 import { useSelector } from "react-redux";
+import { PiRepeatLight } from "react-icons/pi";
+import { outputRepeatVariant } from "../utils/outputRepeatVariant";
 
 
 export const TaskListItem: FC<ITaskListItemState> = ({ task, listName }): ReactElement => {
@@ -43,6 +45,18 @@ export const TaskListItem: FC<ITaskListItemState> = ({ task, listName }): ReactE
                         <Text fontSize={'xs'}>
                            {
                               outputDeadline(task.date)
+                           }
+                        </Text>
+                     </Stack>
+                  : <></>
+               }
+               {
+                  task.repeat.isRepeat ? 
+                     <Stack direction={'row'} align={'center'} gap={2}>
+                        <Icon as={PiRepeatLight} boxSize={4} />
+                        <Text fontSize={'xs'}>
+                           {
+                              outputRepeatVariant(task.repeat.repeatVariant)
                            }
                         </Text>
                      </Stack>

@@ -28,6 +28,7 @@ export const AddImportantTask: FC<IAddImportantTaskProps> = ({ task }): ReactEle
             isPlanedList: task.list.isPlanedList,
             isTasksList: task.list.isTasksList,
             isCompletedList: task.list.isCompletedList,
+            isRepeatList: task.list.isRepeatList,
          }
       };
       

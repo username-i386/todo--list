@@ -9,7 +9,11 @@ const initialState: ITasksState = {
          title: 'taskTitletaskTitletaskTitletaskTitletaskTitle',
          listName: 'MY_DAY_LIST',
          isComplete: false,
-         isRepeat: false,
+         repeat: {
+            isRepeat: false,
+            nextDateRepeat: undefined,
+            repeatVariant: '',
+         },
          isImportant: false,
          date: {
             year: 0,
@@ -23,6 +27,7 @@ const initialState: ITasksState = {
             isPlanedList: false,
             isCompletedList: false,
             isImportantList: false,
+            isRepeatList: false,
          },
       },
       {
@@ -30,7 +35,11 @@ const initialState: ITasksState = {
          title: '11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111',
          listName: 'MY_DAY_LIST',
          isComplete: false,
-         isRepeat: false,
+         repeat: {
+            isRepeat: false,
+            nextDateRepeat: undefined,
+            repeatVariant: '',
+         },
          isImportant: false,
          date: {
             year: 0,
@@ -44,6 +53,7 @@ const initialState: ITasksState = {
             isPlanedList: false,
             isCompletedList: false,
             isImportantList: false,
+            isRepeatList: false,
          },
       },
       {
@@ -51,7 +61,11 @@ const initialState: ITasksState = {
          title: '==-056596304563045693056=079=67657',
          listName: 'MY_DAY_LIST',
          isComplete: false,
-         isRepeat: false,
+         repeat: {
+            isRepeat: false,
+            nextDateRepeat: undefined,
+            repeatVariant: '',
+         }, 
          isImportant: false,
          date: {
             year: 0,
@@ -65,6 +79,7 @@ const initialState: ITasksState = {
             isPlanedList: false,
             isCompletedList: false,
             isImportantList: false,
+            isRepeatList: false,
          },
       },
    ],
@@ -73,6 +88,7 @@ const initialState: ITasksState = {
    allList: [],
    completedList: [],
    tasksList: [],
+   repeatList: [],
 }
 
 const tasksSlice = createSlice({
@@ -97,6 +113,9 @@ const tasksSlice = createSlice({
       addTaskInTasksList: (state: ITasksState, action: PayloadAction<ITask>): void => {
          state.tasksList.push(action.payload);
       },
+      addTaskInRepeatList: (state: ITasksState, action: PayloadAction<ITask>): void => {
+         state.repeatList.push(action.payload);
+      },
       removeTaskInMyDayList: (state: ITasksState, action: PayloadAction<string>) => {
          state.myDayList = state.myDayList.filter(task => task.id !== action.payload)
       },
@@ -115,6 +134,9 @@ const tasksSlice = createSlice({
       removeTaskInTasksList: (state: ITasksState, action: PayloadAction<string>) => {
          state.tasksList = state.tasksList.filter(task => task.id !== action.payload)
       },
+      removeTaskInRepeatList: (state: ITasksState, action: PayloadAction<string>) => {
+         state.repeatList = state.repeatList.filter(task => task.id !== action.payload)
+      },
    }
 })
 
@@ -125,12 +147,14 @@ export const {
    addTaskInMyDayList,
    addTaskInPlanedList,
    addTaskInTasksList,
+   addTaskInRepeatList,
    removeTaskInAllList,
    removeTaskInImportantList,
    removeTaskInCompletedList,
    removeTaskInMyDayList,
    removeTaskInPlanedList,
    removeTaskInTasksList, 
+   removeTaskInRepeatList,
 } = tasksSlice.actions;
 
 export default tasksSlice.reducer;
