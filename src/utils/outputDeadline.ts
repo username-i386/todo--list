@@ -1,14 +1,14 @@
-import { IPlanedTaskDate } from "../redux/types";
+import { IDate } from "../redux/types";
 import { getLocalDate } from "./getLocalDate";
 
 
-export function outputDeadline(planedTaskDate: IPlanedTaskDate): string {
-   if (planedTaskDate?.year === getLocalDate().year) {
-      if (planedTaskDate?.month === getLocalDate().month) {
-         if (planedTaskDate?.day === getLocalDate().day) {
-            return 'сегодня';
-         } else if (planedTaskDate?.day === getLocalDate().day + 1) {
-            return 'завтра';
+export function outputDeadline(planedTaskDate: IDate): string {
+   if (planedTaskDate?.year === getLocalDate().today.year) {
+      if (planedTaskDate?.month === getLocalDate().today.month) {
+         if (planedTaskDate?.day === getLocalDate().today.day) {
+            return 'Сегодня';
+         } else if (planedTaskDate?.day === getLocalDate().today.day + 1) {
+            return 'Завтра';
          }
       }
    }

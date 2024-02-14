@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
-import { IPlanedTaskState, IPlanedTaskDate } from "../types";
+import { IPlanedTaskState, IDate } from "../types";
 
 
 
@@ -11,7 +11,7 @@ const planedTaskSlice = createSlice({
    name: 'planedTaskSlice',
    initialState,
    reducers: {
-      setPlanedToTask: (state: IPlanedTaskState, action: PayloadAction<IPlanedTaskDate | undefined>): void => {
+      setPlanedToTask: (state: IPlanedTaskState, action: PayloadAction<IDate | undefined>): void => {
          state.date = action.payload;
       },
    }
