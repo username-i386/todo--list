@@ -80,7 +80,14 @@ export const RepeatTaskMenu: FC = (): ReactElement => {
       onClose();
    }
 
-
+   function deleteRepeat() {
+      dispatch(setRepeatToTask({
+         isRepeat: false,
+         nextDateRepeat: undefined,
+         repeatVariant: '',
+      }))
+      onClose();
+   }
 
    
 
@@ -148,24 +155,23 @@ export const RepeatTaskMenu: FC = (): ReactElement => {
                               handlerMenuItem={handlerToRepeatTaskMenu} />
                         </Stack>
                      </PopoverBody>
-
-                     {/* <PopoverFooter p={2}>
-                        <Text mb={2}>Выбор даты:</Text>
-                        <Input id='dateInput'
-                           isInvalid={invalidInputValue}
-                           placeholder="Select Date and Time"
-                           size="md"
-                           type="date"
-                           mb={2} />
-                        <Button bg={'blue.500'}
-                           color={'white'}
-                           colorScheme='blue'
-                           w={'100%'}
-                           onClick={handlerDateInput}
-                        >
-                           Cохранить
-                           </Button>
-                     </PopoverFooter> */}
+                     { 
+                        repeatTask.isRepeat ?
+                           <PopoverFooter p={2}>
+                           
+                                 <Button bg={'red.500'}
+                                    color={'white'}
+                                    colorScheme='red'
+                                    w={'100%'}
+                                    onClick={deleteRepeat}
+                                 >
+                                    Удалить дату
+                                 </Button>
+                                 
+                           
+                           </PopoverFooter>
+                        : <></>
+                     }
                </PopoverContent>
             </Portal>
          </Popover>
