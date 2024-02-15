@@ -91,9 +91,9 @@ export const RepeatTaskMenu: FC = (): ReactElement => {
                <Stack align={'center'} justify={'center'}>
                   {
                      (!repeatTask.isRepeat) ?
-                        <Box>
+                        <Stack align={'center'}>
                            <Icon as={PiRepeatLight} boxSize={5} cursor={'pointer'} onClick={onOpen} />
-                        </Box>
+                        </Stack>
                         :
                         <Stack direction={'row'} align={'center'} gap={2}
                            cursor={'pointer'}
