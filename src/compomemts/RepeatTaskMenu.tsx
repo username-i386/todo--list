@@ -13,6 +13,7 @@ import { outputDeadline } from "../utils/outputDeadline";
 import { PiRepeatLight } from "react-icons/pi";
 import { setRepeatToTask } from "../redux/slices/repeatTask";
 import { outputRepeatVariant } from "../utils/outputRepeatVariant";
+import { BsCalendar3, BsCalendar3Week, BsCalendar2Range, BsCalendar4Event, BsCalendar4 } from "react-icons/bs";
 
 
 
@@ -67,7 +68,6 @@ export const RepeatTaskMenu: FC = (): ReactElement => {
                   nextWorkDay = getLocalDate().getFutureDate(i);
                   break;
                }
-               
             }
             const workDayRepeatTask: IRepeatTask = {
                isRepeat: true,
@@ -89,7 +89,7 @@ export const RepeatTaskMenu: FC = (): ReactElement => {
       onClose();
    }
 
-   
+
 
    return (
       <>
@@ -128,27 +128,27 @@ export const RepeatTaskMenu: FC = (): ReactElement => {
                   </PopoverHeader>
                      <PopoverBody p={0}>
                         <Stack direction={'column'} gap={0}>
-                           <CreateTaskMenuItem icon={TbCalendarDue}
+                           <CreateTaskMenuItem icon={BsCalendar3}
                               title='Ежедневно'
                               dayShortName={''}
                               variant={REPEAT_DAILY}
                               handlerMenuItem={handlerToRepeatTaskMenu} />
-                           <CreateTaskMenuItem icon={TbCalendarPlus}
+                           <CreateTaskMenuItem icon={BsCalendar3Week}
                               title='Рабочие дни'
                               dayShortName={''}
                               variant={REPEAT_WORK_DAY}
                               handlerMenuItem={handlerToRepeatTaskMenu} />
-                           <CreateTaskMenuItem icon={TbCalendarShare}
+                           <CreateTaskMenuItem icon={BsCalendar2Range}
                               title='Еженедельно'
                               dayShortName={''}
                               variant={REPEAT_WEEKLY}
                               handlerMenuItem={handlerToRepeatTaskMenu} />
-                           <CreateTaskMenuItem icon={TbCalendarPlus}
+                           <CreateTaskMenuItem icon={BsCalendar4Event}
                               title='Ежемесячно'
                               dayShortName={''}
                               variant={REPEAT_MONTHLY}
                               handlerMenuItem={handlerToRepeatTaskMenu} />
-                           <CreateTaskMenuItem icon={TbCalendarShare}
+                           <CreateTaskMenuItem icon={BsCalendar4}
                               title='Ежегодно'
                               dayShortName={''}
                               variant={REPEAT_YEARLY}
@@ -158,17 +158,14 @@ export const RepeatTaskMenu: FC = (): ReactElement => {
                      { 
                         repeatTask.isRepeat ?
                            <PopoverFooter p={2}>
-                           
-                                 <Button bg={'red.500'}
-                                    color={'white'}
-                                    colorScheme='red'
-                                    w={'100%'}
-                                    onClick={deleteRepeat}
-                                 >
-                                    Удалить дату
-                                 </Button>
-                                 
-                           
+                              <Button bg={'red.500'}
+                                 color={'white'}
+                                 colorScheme='red'
+                                 w={'100%'}
+                                 onClick={deleteRepeat}
+                              >
+                                 Удалить дату
+                              </Button>
                            </PopoverFooter>
                         : <></>
                      }
