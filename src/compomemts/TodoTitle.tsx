@@ -18,7 +18,7 @@ export const TodoTitle: FC<ITodoTitleProps> = ({ icon, title }): ReactElement =>
    }
    
    return (
-      <Stack direction={'column'} p={4} gap={0}>
+      <Stack direction={'column'} p={4} gap={0} userSelect={'none'}>
          <Stack direction={'row'} align={'center'}>
             <ToggleMenuIcon isNavBar={false} />
             {
