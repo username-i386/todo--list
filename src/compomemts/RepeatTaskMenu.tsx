@@ -7,7 +7,7 @@ import { AppDispatch, RootState } from "../redux/store";
 import { useDispatch, useSelector } from "react-redux";
 import { IRepeatTask } from "../redux/types";
 import { PiRepeatLight } from "react-icons/pi";
-import { setRepeatToTask } from "../redux/slices/repeatTask";
+import { setRepeatToTask } from "../redux/slices/repeatTaskSlice";
 import { outputRepeatVariant } from "../utils/outputRepeatVariant";
 import { BsCalendar3, BsCalendar3Week, BsCalendar2Range, BsCalendar4Event, BsCalendar4 } from "react-icons/bs";
 

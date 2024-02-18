@@ -12,9 +12,9 @@ import { ICreateTaskProps } from "./types";
 import { LiaCalendarSolid } from "react-icons/lia";
 import { PiRepeatLight } from "react-icons/pi";
 import { PlanedTaskMenu } from "./PlanedTaskMenu";
-import { setPlanedToTask } from "../redux/slices/planedTask";
+import { setPlanedToTask } from "../redux/slices/planedTaskSlice";
 import { RepeatTaskMenu } from "./RepeatTaskMenu";
-import { setRepeatToTask } from "../redux/slices/repeatTask";
+import { setRepeatToTask } from "../redux/slices/repeatTaskSlice";
 
 
 export const CreateTask: FC<ICreateTaskProps> = ({ listName }): ReactElement => {

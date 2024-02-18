@@ -7,7 +7,7 @@ import { PLANED_NEXT_WEEK, PLANED_TODAY, PLANED_TOMORROW } from "../constants/cr
 import { getLocalDate } from "../utils/getLocalDate";
 import { AppDispatch, RootState } from "../redux/store";
 import { useDispatch, useSelector } from "react-redux";
-import { setPlanedToTask } from "../redux/slices/planedTask";
+import { setPlanedToTask } from "../redux/slices/planedTaskSlice";
 import { IDate } from "../redux/types";
 import { outputDeadline } from "../utils/outputDeadline";
 
