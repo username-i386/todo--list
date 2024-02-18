@@ -1,8 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 import menuReducer from "./slices/menuSlice";
 import tasksReducer from "./slices/tasksSlice";
-import planedTaskReducer from "./slices/planedTask";
-import repeatTaskReducer from "./slices/repeatTask";
+import planedTaskReducer from "./slices/planedTaskSlice";
+import repeatTaskReducer from "./slices/repeatTaskSlice";
+import taskMenuReducer from "./slices/taskMenuSlice";
+
 
 
 export const store = configureStore({
@@ -11,6 +13,7 @@ export const store = configureStore({
       tasksSLice: tasksReducer,
       planedTask: planedTaskReducer,
       repeatTask: repeatTaskReducer,
+      taskMenu: taskMenuReducer,
    }
 })
 

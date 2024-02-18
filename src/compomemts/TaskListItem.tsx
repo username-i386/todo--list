@@ -10,22 +10,32 @@ import { PlanedTaskMenu } from "./PlanedTaskMenu";
 import { LiaCalendarSolid } from "react-icons/lia";
 import { outputDeadline } from "../utils/outputDeadline";
 import { RootState } from "../redux/store";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { PiRepeatLight } from "react-icons/pi";
 import { outputRepeatVariant } from "../utils/outputRepeatVariant";
+import { toggleTaskMenu } from "../redux/slices/taskMenuSlice";
 
 
 export const TaskListItem: FC<ITaskListItemState> = ({ task, listName }): ReactElement => {
+
+   const dispatch = useDispatch();
    
    const itemsBorder = useColorModeValue('blue.500', 'blue.200')
    
    const planedTaskDate = useSelector((state: RootState) => state.planedTask.date);
 
+   function openTaskMenu() {
+      dispatch(toggleTaskMenu({
+         isOpen: true,
+         task: task,
+      }))
+   }
+
    return (
       <Stack direction={'row'} justify={'space-between'} align={'center'} p={2}>
          <AddCompleteTask task={task} listName={listName} />
 
-         <Box flex={'1 0 auto'}>
+         <Box flex={'1 0 auto'} cursor={'pointer'} onClick={openTaskMenu}>
             <Text textDecoration={task.isComplete ? 'line-through' : ''} >
                {task.title}
             </Text>
