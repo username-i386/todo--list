@@ -29,18 +29,6 @@ export const AddCompleteTask: FC<IAddCompleteTaskProps> = ({ task, listName }): 
    })
 
    function addTaskToComplete() {
-      // const completeTask: ITask = {
-      //    ...task,
-      //    isComplete: true,
-      //    list: {
-      //       isAllList: true,
-      //       isCompletedList: true,
-      //       isImportantList: task.list.isImportantList,
-      //       isMyDayList: task.list.isMyDayList,
-      //       isPlanedList: task.list.isPlanedList,
-      //       isTasksList: task.list.isTasksList,
-      //    }
-      // };
       dispatch(addTaskInCompletedList(completeTask()));
    }
 
@@ -91,11 +79,12 @@ export const AddCompleteTask: FC<IAddCompleteTaskProps> = ({ task, listName }): 
          rounded={'full'}
          border={'1px solid tomato'}
          boxSize={4}
+         minW={4}
          cursor={'pointer'}
          onClick={handleCheckbox}
       >
          <Icon as={FaCheck}
-            w={2} 
+            minW={2} 
             color={task.isComplete ? 'tomato' : 'transparent'} 
             _hover={{ color: 'tomato' }} /> 
       </Stack>

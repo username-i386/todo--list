@@ -32,13 +32,15 @@ export const TaskListItem: FC<ITaskListItemState> = ({ task, listName }): ReactE
    }
 
    return (
-      <Stack direction={'row'} justify={'space-between'} align={'center'} p={2}>
+      <Stack direction={'row'} justify={'space-between'} align={'center'} p={2} wordBreak={'break-all'}>
          <AddCompleteTask task={task} listName={listName} />
 
-         <Box flex={'1 0 auto'} cursor={'pointer'} onClick={openTaskMenu}>
-            <Text textDecoration={task.isComplete ? 'line-through' : ''} >
-               {task.title}
-            </Text>
+         <Box flex={'1 1 auto'} cursor={'pointer'} onClick={openTaskMenu}>
+            <Box>
+               <Text textDecoration={task.isComplete ? 'line-through' : ''} >
+                  {task.title}
+               </Text>
+            </Box>
             <Stack direction={'row'} align={'center'} pt={1}>
                {
                   (task.listName === MY_DAY_LIST) ?
