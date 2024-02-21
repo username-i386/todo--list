@@ -33,7 +33,7 @@ export const AddImportantTask: FC<IAddImportantTaskProps> = ({ task }): ReactEle
       };
       
       if (!checkIsTaskInList(importantTaskList, task)) {
-         if (!task.isComplete) {
+         if (!checkTaskIsComplete()) {
             dispatch(addTaskInImportantList(importantTask));
          }
       } else {
@@ -41,6 +41,14 @@ export const AddImportantTask: FC<IAddImportantTaskProps> = ({ task }): ReactEle
       }
    }
 
+   function checkTaskIsComplete(): boolean {
+      for (let i = 0; i < completedList.length; i++) {
+         if (task.id === completedList[i].id) {
+            return true;
+         } 
+      }
+      return false;
+   }
    
    
    return (
