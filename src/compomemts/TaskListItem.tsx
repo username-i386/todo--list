@@ -16,7 +16,7 @@ import { outputRepeatVariant } from "../utils/outputRepeatVariant";
 import { toggleTaskMenu } from "../redux/slices/taskMenuSlice";
 
 
-export const TaskListItem: FC<ITaskListItemState> = ({ task, listName }): ReactElement => {
+export const TaskListItem: FC<ITaskListItemState> = ({ task }): ReactElement => {
 
    const dispatch = useDispatch();
    
@@ -33,7 +33,7 @@ export const TaskListItem: FC<ITaskListItemState> = ({ task, listName }): ReactE
 
    return (
       <Stack direction={'row'} justify={'space-between'} align={'center'} p={2} wordBreak={'break-all'}>
-         <AddCompleteTask task={task} listName={listName} />
+         <AddCompleteTask task={task} />
 
          <Box flex={'1 1 auto'} cursor={'pointer'} onClick={openTaskMenu}>
             <Box>

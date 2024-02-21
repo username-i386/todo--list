@@ -9,7 +9,7 @@ import { addTaskInAllList, addTaskInCompletedList, addTaskInMyDayList, addTaskIn
 import { MY_DAY_LIST, PLANED_LIST, TASKS_LIST } from "../constants/tasksListName";
 
 
-export const AddCompleteTask: FC<IAddCompleteTaskProps> = ({ task, listName }): ReactElement => {
+export const AddCompleteTask: FC<IAddCompleteTaskProps> = ({ task }): ReactElement => {
 
    const dispatch: AppDispatch = useDispatch();
 
@@ -33,7 +33,7 @@ export const AddCompleteTask: FC<IAddCompleteTaskProps> = ({ task, listName }): 
    }
 
    function removeTask() {
-      switch (listName) {
+      switch (task.listName) {
          case MY_DAY_LIST:
             dispatch(removeTaskInMyDayList(task.id));
             break;
@@ -84,6 +84,7 @@ export const AddCompleteTask: FC<IAddCompleteTaskProps> = ({ task, listName }): 
          onClick={handleCheckbox}
       >
          <Icon as={FaCheck}
+            w={2} 
             minW={2} 
             color={task.isComplete ? 'tomato' : 'transparent'} 
             _hover={{ color: 'tomato' }} /> 
