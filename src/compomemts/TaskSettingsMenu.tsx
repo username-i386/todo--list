@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { Box } from "@chakra-ui/react";
 import { TaskListItem } from "./TaskListItem";
+import { SubtaskList } from "./SubtaskList";
 
 
 export const TaskSettingsMenu: FC = (): ReactElement => {
@@ -12,8 +13,9 @@ export const TaskSettingsMenu: FC = (): ReactElement => {
    if (task === undefined) return <></>
 
    return (
-      <Box w={'300px'} maxW={'300px'}>
-         <TaskListItem task={task} listName=""/>
+      <Box>
+         <TaskListItem task={task} />
+         <SubtaskList />
       </Box>
    )
 }
