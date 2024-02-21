@@ -24,7 +24,7 @@ export const CreateTask: FC<ICreateTaskProps> = ({ listName }): ReactElement => 
    const planedTaskDate = useSelector((state: RootState) => state.planedTask.date);
    const repeatTask = useSelector((state: RootState) => state.repeatTask.repeatTask);
 
-   
+
    const [taskTitle, setTaskTitle] = useState('');
 
    function createTask(): ITask {
@@ -43,7 +43,7 @@ export const CreateTask: FC<ICreateTaskProps> = ({ listName }): ReactElement => 
             isPlanedList: (planedTaskDate) ? true : false,
             isCompletedList: (listName === COMPLETED_LIST) ? true : false,
             isImportantList: (listName === IMPORTANT_LIST) ? true : false,
-            isRepeatList: repeatTask.isRepeat
+            isRepeatList: repeatTask.isRepeat,
          },
       };
       return task;
