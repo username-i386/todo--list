@@ -69,4 +69,17 @@ export interface ITaskMenuState {
    task: ITask | undefined
 }
 
+//!Subtask Slice------------------------------------------------------------------------------------------------------------------------------------
+
+export interface ISubtask {
+   taskId: string
+   subtaskId: string
+   title: string
+   isComplete: boolean
+}
+
+export interface ISubtaskState {
+   subtasks: ISubtask[]
+}
+
 //!------------------------------------------------------------------------------------------------------------------------------------

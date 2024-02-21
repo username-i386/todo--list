@@ -4,6 +4,7 @@ import tasksReducer from "./slices/tasksSlice";
 import planedTaskReducer from "./slices/planedTaskSlice";
 import repeatTaskReducer from "./slices/repeatTaskSlice";
 import taskMenuReducer from "./slices/taskMenuSlice";
+import subtasksReducer from "./slices/subtasksSlice";
 
 
 
@@ -14,6 +15,7 @@ export const store = configureStore({
       planedTask: planedTaskReducer,
       repeatTask: repeatTaskReducer,
       taskMenu: taskMenuReducer,
+      subtasks: subtasksReducer,
    }
 })
 

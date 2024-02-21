@@ -1,5 +1,5 @@
 import { FC } from "react"
-import { ITask } from "../redux/types"
+import { ISubtask, ITask } from "../redux/types"
 
 export interface IToggleMenuIconProps {
    isNavBar: boolean
@@ -20,7 +20,6 @@ export interface ITaskListProps {
 
 export interface ITaskListItemState {
    task: ITask
-   listName: string
 }
 
 export interface IAddImportantTaskProps {
@@ -29,7 +28,6 @@ export interface IAddImportantTaskProps {
 
 export interface IAddCompleteTaskProps {
    task: ITask
-   listName: string
 }
 
 export interface ITaskListMenuProps {
@@ -42,4 +40,14 @@ export interface ICreateTaskMenuItemProps {
    dayShortName: string
    variant: string
    handlerMenuItem: (variant: string) => void
+}
+
+export interface ISubtaskListItemProps {
+   subtask: ISubtask
+}
+
+export interface IConfirmDeletionModalProps {
+   isOpen: boolean
+   onClose: () => void
+   subtask: ISubtask
 }
