@@ -51,3 +51,7 @@ export interface IConfirmDeletionModalProps {
    onClose: () => void
    subtask: ISubtask
 }
+
+export interface IAddTaskToMyDayListProps {
+   task: ITask
+}

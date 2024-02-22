@@ -1,9 +1,10 @@
 import { FC, ReactElement } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
-import { Box } from "@chakra-ui/react";
+import { Stack } from "@chakra-ui/react";
 import { TaskListItem } from "./TaskListItem";
 import { SubtaskList } from "./SubtaskList";
+import { AddTaskToMyDayList } from "./AddTaskToMyDayList";
 
 
 export const TaskSettingsMenu: FC = (): ReactElement => {
@@ -13,9 +14,10 @@ export const TaskSettingsMenu: FC = (): ReactElement => {
    if (task === undefined) return <></>
 
    return (
-      <Box>
+      <Stack direction={'column'} px={2} spacing={4}>
          <TaskListItem task={task} />
          <SubtaskList />
-      </Box>
+         <AddTaskToMyDayList task={task} />
+      </Stack>
    )
 }
