@@ -55,3 +55,7 @@ export interface IConfirmDeletionModalProps {
 export interface IAddTaskToMyDayListProps {
    task: ITask
 }
+
+export interface IAddPlanedDateToTaskProps {
+   task: ITask
+}

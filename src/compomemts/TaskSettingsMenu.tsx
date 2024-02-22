@@ -5,6 +5,7 @@ import { Stack } from "@chakra-ui/react";
 import { TaskListItem } from "./TaskListItem";
 import { SubtaskList } from "./SubtaskList";
 import { AddTaskToMyDayList } from "./AddTaskToMyDayList";
+import { AddPlanedDateToTask } from "./AddPlanedDateToTask";
 
 
 export const TaskSettingsMenu: FC = (): ReactElement => {
@@ -18,6 +19,7 @@ export const TaskSettingsMenu: FC = (): ReactElement => {
          <TaskListItem task={task} />
          <SubtaskList />
          <AddTaskToMyDayList task={task} />
+         <AddPlanedDateToTask task={task} />
       </Stack>
    )
 }
