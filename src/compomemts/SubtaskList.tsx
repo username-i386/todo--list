@@ -14,7 +14,7 @@ export const SubtaskList: FC = (): ReactElement => {
     console.log(allSubtasks);
     
     return (
-        <Stack pl={2}>
+        <Stack pl={4}>
             {
                 allSubtasks.map((subtask, index) => {
                     if (task?.id === subtask.taskId) {

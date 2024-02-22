@@ -23,7 +23,7 @@ export const SubtaskListItem: FC<ISubtaskListItemProps> = ({ subtask }): ReactEl
 
     return (
         <>
-            <Stack direction={'row'} justify={'space-between'} align={'center'} p={2} wordBreak={'break-all'}>
+            <Stack direction={'row'} justify={'space-between'} align={'center'} wordBreak={'break-all'}>
                 <Stack justify={'center'}
                     align={'center'}
                     rounded={'full'}
