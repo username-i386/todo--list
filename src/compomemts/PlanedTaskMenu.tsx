@@ -183,16 +183,6 @@ export const PlanedTaskMenu: FC = (): ReactElement => {
                         }
                      </Stack>
                   </PopoverFooter>
-                  {/* <PopoverFooter p={2}>
-                     <Button bg={'red.500'}
-                        color={'white'}
-                        colorScheme='red'
-                        w={'100%'}
-                        onClick={handlerDateBtn}
-                     >
-                        Удалить дату
-                     </Button>
-                  </PopoverFooter> */}
                </PopoverContent>
             </Portal>
          </Popover>

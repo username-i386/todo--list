@@ -11,8 +11,6 @@ export const SubtaskList: FC = (): ReactElement => {
     const task = useSelector((state: RootState) => state.taskMenu.task);
     const allSubtasks = useSelector((state: RootState) => state.subtasks.subtasks);    
 
-    console.log(allSubtasks);
-    
     return (
         <Stack pl={4}>
             {
