@@ -19,14 +19,16 @@ export const CreateSubtask: FC = (): ReactElement => {
     function handleKeyboardEnter(event: React.KeyboardEvent<HTMLInputElement>) {
         if (event.code === 'Enter') {
             if (task !== undefined) {
-                const subtask: ISubtask = {
-                    taskId: task?.id,
-                    subtaskId: nanoid(),
-                    title: subtaskTitle,
-                    isComplete: false,
+                if (subtaskTitle !== '') {
+                    const subtask: ISubtask = {
+                        taskId: task?.id,
+                        subtaskId: nanoid(),
+                        title: subtaskTitle,
+                        isComplete: false,
+                    }
+                    dispatch(setSubtask(subtask));
+                    setSubtaskTitle('');
                 }
-                dispatch(setSubtask(subtask));
-                setSubtaskTitle('');
             }
         }
     }
@@ -40,7 +42,7 @@ export const CreateSubtask: FC = (): ReactElement => {
                     <Icon as={FaPencilAlt} />
                 </InputLeftElement>
                 <Input type='text' 
-                    placeholder='Добавить задачу' 
+                    placeholder='Добавить подзадачу' 
                     variant='flushed'
                     _placeholder={{ color: 'blue.600', fontWeight: 600 }}
                     value={subtaskTitle}
