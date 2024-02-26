@@ -8,13 +8,18 @@ import { nanoid } from "nanoid";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../redux/store";
 import { addTaskInAllList, addTaskInCompletedList, addTaskInImportantList, addTaskInMyDayList, addTaskInPlanedList, addTaskInRepeatList, addTaskInTasksList } from "../redux/slices/tasksSlice";
-import { ICreateTaskProps } from "./types";
+import { ICreateTaskProps, ITaskMenuItem } from "./types";
 import { LiaCalendarSolid } from "react-icons/lia";
 import { PiRepeatLight } from "react-icons/pi";
 import { PlanedTaskMenu } from "./PlanedTaskMenu";
 import { setPlanedToTask } from "../redux/slices/planedTaskSlice";
 import { RepeatTaskMenu } from "./RepeatTaskMenu";
 import { setRepeatToTask } from "../redux/slices/repeatTaskSlice";
+import { BsCalendar2Range, BsCalendar3, BsCalendar3Week, BsCalendar4, BsCalendar4Event } from "react-icons/bs";
+import { REPEAT_DAILY, REPEAT_MONTHLY, REPEAT_WEEKLY, REPEAT_WORK_DAY, REPEAT_YEARLY } from "../constants/createTaskMenuItemsVariant";
+import { handlerToRepeatTaskMenu } from "../utils/handlerRepeatTaskMenu";
+import { addTaskToList } from "../utils/addTaskToList";
+import { REPEAT_TASK_MENU_ITEMS } from "../constants/repeatTaskMenuItems";
 
 
 export const CreateTask: FC<ICreateTaskProps> = ({ listName }): ReactElement => {
@@ -51,7 +56,7 @@ export const CreateTask: FC<ICreateTaskProps> = ({ listName }): ReactElement => 
 
    function handleKeyboardEnter(e: React.KeyboardEvent<HTMLInputElement>) {
       if (e.code === 'Enter') {
-         addTaskToList(createTask());
+         addTaskToList(createTask(), dispatch);
          setTaskTitle('');
 
          dispatch(setPlanedToTask(undefined));
@@ -64,47 +69,18 @@ export const CreateTask: FC<ICreateTaskProps> = ({ listName }): ReactElement => 
    }
 
    function handleAddButton() {
-      addTaskToList(createTask());
-      setTaskTitle('');
-
-      dispatch(setPlanedToTask(undefined));
-      dispatch(setRepeatToTask({
-         isRepeat: false,
-         nextDateRepeat: undefined,
-         repeatVariant: '',
-      }))
-   }
-
-   function addTaskToList(task: ITask) {
       if (taskTitle !== '') {
-         if (task.list.isAllList) {
-            dispatch(addTaskInAllList(task));
-         }
-
-         if (task.list.isCompletedList) {
-            dispatch(addTaskInCompletedList(task));
-         }
-
-         if (task.list.isImportantList) {
-            dispatch(addTaskInImportantList(task));
-         }
-
-         if (task.list.isMyDayList) {
-            dispatch(addTaskInMyDayList(task));
-         }
-
-         if (task.list.isPlanedList) {
-            dispatch(addTaskInPlanedList(task));
-         }
-
-         if (task.list.isTasksList) {
-            dispatch(addTaskInTasksList(task));
-         }
-
-         if (task.list.isRepeatList) {
-            dispatch(addTaskInRepeatList(task));
-         }
+         addTaskToList(createTask(), dispatch);
+         setTaskTitle('');
+   
+         dispatch(setPlanedToTask(undefined));
+         dispatch(setRepeatToTask({
+            isRepeat: false,
+            nextDateRepeat: undefined,
+            repeatVariant: '',
+         }))
       }
+      
    }
 
    return (
@@ -125,7 +101,9 @@ export const CreateTask: FC<ICreateTaskProps> = ({ listName }): ReactElement => 
          <Stack direction={'row'} justify={'space-between'} align={'center'} p={2}>
             <Stack direction={'row'} align={'center'}>
                <PlanedTaskMenu />
-               <RepeatTaskMenu />
+               <RepeatTaskMenu taskMenuItems={REPEAT_TASK_MENU_ITEMS} 
+                  handlerMenuItem={handlerToRepeatTaskMenu}
+                  isNewTask={true}  />
             </Stack>
             <Box>
                <Button size={'sm'}

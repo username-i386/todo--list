@@ -1,5 +1,6 @@
 import { FC } from "react"
 import { ISubtask, ITask } from "../redux/types"
+import { AppDispatch } from "../redux/store"
 
 export interface IToggleMenuIconProps {
    isNavBar: boolean
@@ -39,7 +40,9 @@ export interface ICreateTaskMenuItemProps {
    title: string
    dayShortName: string
    variant: string
-   handlerMenuItem: (variant: string) => void
+   task?: ITask
+   onClose: () => void
+   handlerMenuItem: (variant: string, dispatch: AppDispatch, onClose: () => void, task?: ITask) => void
 }
 
 export interface ISubtaskListItemProps {
@@ -58,4 +61,27 @@ export interface IAddTaskToMyDayListProps {
 
 export interface IAddPlanedDateToTaskProps {
    task: ITask
+}
+
+export interface IAddRepeatToTaskProps {
+   task: ITask
+}
+
+export interface IRepeatTaskMenuProps {
+   isNewTask: boolean
+   taskMenuItems: ITaskMenuItem[]
+   // deleteRepeat: () => void
+   task?: ITask
+   handlerMenuItem: (variant: string, dispatch: AppDispatch, onClose: () => void, task?: ITask) => void
+}
+
+export interface ITaskMenuItem {
+   icon: FC
+   title: string
+   dayShortName: string
+   variant: string
+}
+
+export interface IRepeatTriggerProps {
+   onOpen: () => void
 }

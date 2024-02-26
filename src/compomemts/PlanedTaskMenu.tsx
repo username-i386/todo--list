@@ -136,17 +136,20 @@ export const PlanedTaskMenu: FC = (): ReactElement => {
                            title='сегодня'
                            dayShortName={deadlineDate.today}
                            variant={PLANED_TODAY}
-                           handlerMenuItem={handlerToPlanedTaskMenu} />
+                           handlerMenuItem={handlerToPlanedTaskMenu}
+                           onClose={onClose} />
                         <CreateTaskMenuItem icon={TbCalendarPlus}
                            title='завтра'
                            dayShortName={deadlineDate.tomorrow}
                            variant={PLANED_TOMORROW}
-                           handlerMenuItem={handlerToPlanedTaskMenu} />
+                           handlerMenuItem={handlerToPlanedTaskMenu}
+                           onClose={onClose} />
                         <CreateTaskMenuItem icon={TbCalendarShare}
                            title='с понедельника начну'
                            dayShortName={'пн'}
                            variant={PLANED_NEXT_WEEK}
-                           handlerMenuItem={handlerToPlanedTaskMenu} />
+                           handlerMenuItem={handlerToPlanedTaskMenu}
+                           onClose={onClose} />
                      </Stack>
                   </PopoverBody>
 
