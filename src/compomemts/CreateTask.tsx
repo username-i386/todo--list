@@ -1,22 +1,17 @@
 import { Box, Button, Icon, Input, InputGroup, InputLeftElement, Stack } from "@chakra-ui/react";
 import { FC, ReactElement, useState } from "react";
 import { FaPencilAlt } from "react-icons/fa";
-import { IDate, IPlanedTaskState, ITask } from "../redux/types";
+import { IDate, ITask } from "../redux/types";
 import { COMPLETED_LIST, IMPORTANT_LIST, MY_DAY_LIST, PLANED_LIST, TASKS_LIST } from "../constants/tasksListName";
 import { getLocalDate } from "../utils/getLocalDate";
 import { nanoid } from "nanoid";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../redux/store";
-import { addTaskInAllList, addTaskInCompletedList, addTaskInImportantList, addTaskInMyDayList, addTaskInPlanedList, addTaskInRepeatList, addTaskInTasksList } from "../redux/slices/tasksSlice";
-import { ICreateTaskProps, ITaskMenuItem } from "./types";
-import { LiaCalendarSolid } from "react-icons/lia";
-import { PiRepeatLight } from "react-icons/pi";
+import { ICreateTaskProps } from "./types";
 import { PlanedTaskMenu } from "./PlanedTaskMenu";
 import { setPlanedToTask } from "../redux/slices/planedTaskSlice";
 import { RepeatTaskMenu } from "./RepeatTaskMenu";
 import { setRepeatToTask } from "../redux/slices/repeatTaskSlice";
-import { BsCalendar2Range, BsCalendar3, BsCalendar3Week, BsCalendar4, BsCalendar4Event } from "react-icons/bs";
-import { REPEAT_DAILY, REPEAT_MONTHLY, REPEAT_WEEKLY, REPEAT_WORK_DAY, REPEAT_YEARLY } from "../constants/createTaskMenuItemsVariant";
 import { handlerToRepeatTaskMenu } from "../utils/handlerRepeatTaskMenu";
 import { addTaskToList } from "../utils/addTaskToList";
 import { REPEAT_TASK_MENU_ITEMS } from "../constants/repeatTaskMenuItems";
@@ -32,6 +27,22 @@ export const CreateTask: FC<ICreateTaskProps> = ({ listName }): ReactElement => 
 
    const [taskTitle, setTaskTitle] = useState('');
 
+   const todayDate: IDate = {
+      year: getLocalDate().today.year,
+      month: getLocalDate().today.month,
+      day: getLocalDate().today.day,
+   }
+
+   const planedDate = (): IDate | undefined => {
+      if (listName === PLANED_LIST) {
+         if (!planedTaskDate) {
+            return todayDate;
+         } 
+      } 
+      
+      return planedTaskDate;
+   }
+
    function createTask(): ITask {
       const task: ITask  = {
          id: nanoid(),
@@ -40,17 +51,13 @@ export const CreateTask: FC<ICreateTaskProps> = ({ listName }): ReactElement => 
          isComplete: false,
          repeat: repeatTask,
          isImportant: false,
-         planedDate: planedTaskDate,
-         createdDate: {
-            year: getLocalDate().today.year,
-            month: getLocalDate().today.month,
-            day: getLocalDate().today.day,
-         },
+         planedDate: planedDate(),
+         createdDate: todayDate,
          list: {
             isAllList: true,
             isTasksList: (listName === TASKS_LIST) ? true : false,
             isMyDayList: (listName === MY_DAY_LIST) ? true : false,
-            isPlanedList: (planedTaskDate) ? true : false,
+            isPlanedList: (listName === PLANED_LIST) ? true : (planedTaskDate) ? true : false,
             isCompletedList: (listName === COMPLETED_LIST) ? true : false,
             isImportantList: (listName === IMPORTANT_LIST) ? true : false,
             isRepeatList: repeatTask.isRepeat,
