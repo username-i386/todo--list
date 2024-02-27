@@ -21,6 +21,7 @@ export interface ITaskListProps {
 
 export interface ITaskListItemState {
    task: ITask
+   isSettings: boolean
 }
 
 export interface IAddImportantTaskProps {
@@ -52,7 +53,8 @@ export interface ISubtaskListItemProps {
 export interface IConfirmDeletionModalProps {
    isOpen: boolean
    onClose: () => void
-   subtask: ISubtask
+   subtask?: ISubtask
+   task?: ITask
 }
 
 export interface IAddTaskToMyDayListProps {
@@ -87,5 +89,9 @@ export interface IRepeatTriggerProps {
 }
 
 export interface ITaskNoteProps {
+   task: ITask
+}
+
+export interface ITaskSettingsControllerProps {
    task: ITask
 }

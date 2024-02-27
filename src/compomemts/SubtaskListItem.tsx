@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "../redux/store";
 import { deleteSubtask, toggleCompleteSubTask } from "../redux/slices/subtasksSlice";
 import { ISubtaskListItemProps } from "./types";
-import { ConfirmDeletionModal } from "./confirmDeletionModal";
+import { ConfirmDeletionModal } from "./ConfirmDeletionModal";
 
 
 export const SubtaskListItem: FC<ISubtaskListItemProps> = ({ subtask }): ReactElement => {
