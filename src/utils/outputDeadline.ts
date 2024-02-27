@@ -2,7 +2,10 @@ import { IDate } from "../redux/types";
 import { getLocalDate } from "./getLocalDate";
 
 
-export function outputDeadline(planedTaskDate: IDate): string {
+export function outputDate(planedTaskDate: IDate, isDeadline: boolean): string {
+
+   const title: string = isDeadline ? 'Срок' : 'Cоздано';
+
    if (planedTaskDate?.year === getLocalDate().today.year) {
       if (planedTaskDate?.month === getLocalDate().today.month) {
          if (planedTaskDate?.day === getLocalDate().today.day) {
@@ -13,9 +16,10 @@ export function outputDeadline(planedTaskDate: IDate): string {
       }
    }
 
+   
    const date = new Date(planedTaskDate.year, planedTaskDate.month - 1, planedTaskDate.day);
 
-   return 'Срок: ' +
+   return title + ' ' +
       getLocalDate(date.getDay()).dayShortName() + ', ' +
       planedTaskDate.day + ' ' +
       getLocalDate(undefined, date.getMonth()).monthName();

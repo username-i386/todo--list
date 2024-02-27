@@ -9,7 +9,7 @@ import { AppDispatch, RootState } from "../redux/store";
 import { useDispatch, useSelector } from "react-redux";
 import { setPlanedToTask } from "../redux/slices/planedTaskSlice";
 import { IDate } from "../redux/types";
-import { outputDeadline } from "../utils/outputDeadline";
+import { outputDate } from "../utils/outputDeadline";
 
 
 
@@ -113,7 +113,7 @@ export const PlanedTaskMenu: FC = (): ReactElement => {
                            <Icon as={LiaCalendarSolid} boxSize={5} />
                            <Text fontSize={'xs'}>
                               {
-                                 outputDeadline(planedTaskDate)
+                                 outputDate(planedTaskDate, true)
                               }
                            </Text>
                         </Stack>
