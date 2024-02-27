@@ -2,10 +2,11 @@ import { Grid, GridItem } from "@chakra-ui/react";
 import { FC, ReactElement } from "react";
 import { Header } from "./Header";
 import { NavBar } from "./NavBar";
-import { Main } from "./Main";
+import { MainContent } from "./MainContent";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { TaskSettingsMenu } from "./TaskSettingsMenu";
+import { Outlet } from "react-router-dom";
 
 export const App: FC = (): ReactElement => {
 
@@ -51,7 +52,7 @@ export const App: FC = (): ReactElement => {
         <NavBar />
       </GridItem>
       <GridItem area={'main'} overflow={'auto'}>
-        <Main />
+        <Outlet />
       </GridItem>
       <GridItem area={'taskMenu'}>
         <TaskSettingsMenu />
