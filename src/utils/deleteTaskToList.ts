@@ -1,9 +1,15 @@
-import { removeTaskInAllList, removeTaskInCompletedList, removeTaskInImportantList, removeTaskInMyDayList, removeTaskInPlanedList, removeTaskInRepeatList, removeTaskInTasksList } from "../redux/slices/tasksSlice";
+import { removeTaskInAllList, 
+    removeTaskInCompletedList, 
+    removeTaskInImportantList, 
+    removeTaskInMyDayList, 
+    removeTaskInPlanedList, 
+    removeTaskInRepeatList, 
+    removeTaskInTasksList } from "../redux/slices/tasksSlice";
 import { AppDispatch } from "../redux/store";
 import { ITask } from "../redux/types";
 
 
-export function deleteTaskToList(task: ITask, dispatch: AppDispatch) {
+export function deleteTaskToList(task: ITask, dispatch: AppDispatch, exception?: string[]) {
     if (task.list.isAllList) {
         dispatch(removeTaskInAllList(task.id));
     }
