@@ -44,7 +44,7 @@ export const TaskList: FC<ITaskListProps> = ({ listName }): ReactElement => {
          {
             taskList.map((task, index): ReactElement => {
                return (
-                  <TaskListItem key={index} task={task} />
+                  <TaskListItem key={index} task={task} isSettings={false} />
                )
             })
          }
