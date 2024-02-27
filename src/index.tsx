@@ -7,6 +7,10 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from './redux/store';
 import { MyDayPage } from './page/MyDayPage';
+import { ImportantPage } from './page/ImportantPage';
+import { PlanedPage } from './page/PlanedPage';
+import { AllPage } from './page/AllPage';
+import { TasksPage } from './page/TasksPage';
 
 const router = createBrowserRouter([
   {
@@ -19,23 +23,19 @@ const router = createBrowserRouter([
       },
       {
         path: '/important',
-        element: <h1>important</h1>,
+        element: <ImportantPage />,
       },
       {
         path: '/planed',
-        element: <h1>planed</h1>,
+        element: <PlanedPage />,
       },
       {
         path: '/all',
-        element: <h1>all</h1>,
-      },
-      {
-        path: '/completed',
-        element: <h1>completed</h1>,
+        element: <AllPage />,
       },
       {
         path: '/tasks',
-        element: <h1>tasks</h1>,
+        element: <TasksPage />,
       },
     ]
   },
@@ -45,11 +45,11 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-  // <StrictMode>
+  <StrictMode>
     <ChakraProvider theme={theme}>
       <Provider store={store}>
         <RouterProvider router={router} />
       </Provider>
     </ChakraProvider>
-  // </StrictMode>
+  </StrictMode>
 );

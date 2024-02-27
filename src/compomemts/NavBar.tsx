@@ -39,7 +39,7 @@ export const NavBar: FC = (): ReactElement => {
       { url: '/important', title: 'Важно',         icon: CiStar },
       { url: '/planed',    title: 'Запланировано', icon: LiaCalendarSolid },
       { url: '/all',       title: 'Все',           icon: PiInfinityThin },
-      { url: '/completed', title: 'Завершенные',   icon: GrCompliance },
+      // { url: '/completed', title: 'Завершенные',   icon: GrCompliance },
       { url: '/tasks',     title: 'Задачи',        icon: PiHouse },
    ];
 
