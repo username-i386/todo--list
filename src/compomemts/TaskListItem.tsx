@@ -51,12 +51,12 @@ export const TaskListItem: FC<ITaskListItemState> = ({ task }): ReactElement => 
                   : <></>
                }
                {
-                  (task.date?.day && task.date.month && task.date.year) ?
+                  (task.planedDate?.day && task.planedDate.month && task.planedDate.year) ?
                      <Stack direction={'row'} align={'center'} gap={2}>
                         <Icon as={LiaCalendarSolid} boxSize={4} />
                         <Text fontSize={'xs'}>
                            {
-                              outputDeadline(task.date)
+                              outputDeadline(task.planedDate)
                            }
                         </Text>
                      </Stack>

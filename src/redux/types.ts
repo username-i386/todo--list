@@ -13,7 +13,8 @@ export interface ITask {
    isComplete: boolean
    repeat: IRepeatTask
    isImportant: boolean
-   date: IDate | undefined
+   planedDate: IDate | undefined
+   createdDate: IDate | undefined
    list: {
       isMyDayList: boolean
       isImportantList: boolean

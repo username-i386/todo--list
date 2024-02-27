@@ -15,7 +15,12 @@ const initialState: ITasksState = {
             repeatVariant: '',
          },
          isImportant: false,
-         date: {
+         planedDate: {
+            year: 0,
+            month: 0,
+            day: 0,
+         },
+         createdDate: {
             year: 0,
             month: 0,
             day: 0,
@@ -41,7 +46,12 @@ const initialState: ITasksState = {
             repeatVariant: '',
          },
          isImportant: false,
-         date: {
+         planedDate: {
+            year: 0,
+            month: 0,
+            day: 0,
+         },
+         createdDate: {
             year: 0,
             month: 0,
             day: 0,
@@ -67,7 +77,12 @@ const initialState: ITasksState = {
             repeatVariant: '',
          }, 
          isImportant: false,
-         date: {
+         planedDate: {
+            year: 0,
+            month: 0,
+            day: 0,
+         },
+         createdDate: {
             year: 0,
             month: 0,
             day: 0,

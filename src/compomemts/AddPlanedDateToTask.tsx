@@ -17,15 +17,15 @@ export const AddPlanedDateToTask: FC<IAddPlanedDateToTaskProps> = ({ task }): Re
     const [defaultDateValue, setDefaultDateValue] = useState('');
 
     useEffect(() => {
-        if (task.date) {
+        if (task.planedDate) {
             const date = {
-                year: String(task.date.year),
-                month: String(task.date.month).padStart(2, '0'),
-                day: String(task.date.day).padStart(2, '0'),
+                year: String(task.planedDate.year),
+                month: String(task.planedDate.month).padStart(2, '0'),
+                day: String(task.planedDate.day).padStart(2, '0'),
             }
             setDefaultDateValue(date.year + '-' + date.month  + '-' + date.day);
         }
-    }, [task.date])
+    }, [task.planedDate])
 
     function addPlanedDateToTask() {
         const dateInput = document.querySelector('#dateInput') as HTMLInputElement;
@@ -36,7 +36,7 @@ export const AddPlanedDateToTask: FC<IAddPlanedDateToTaskProps> = ({ task }): Re
         }
         const planedTask: ITask = {
             ...task,
-            date: datePlanedTask,
+            planedDate: datePlanedTask,
             list: {
                 ...task.list,
                 isPlanedList: true,

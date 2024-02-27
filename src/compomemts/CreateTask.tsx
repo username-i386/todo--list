@@ -33,14 +33,19 @@ export const CreateTask: FC<ICreateTaskProps> = ({ listName }): ReactElement => 
    const [taskTitle, setTaskTitle] = useState('');
 
    function createTask(): ITask {
-      const task = {
+      const task: ITask  = {
          id: nanoid(),
          title: taskTitle,
          listName: listName,
          isComplete: false,
          repeat: repeatTask,
          isImportant: false,
-         date: planedTaskDate,
+         planedDate: planedTaskDate,
+         createdDate: {
+            year: getLocalDate().today.year,
+            month: getLocalDate().today.month,
+            day: getLocalDate().today.day,
+         },
          list: {
             isAllList: true,
             isTasksList: (listName === TASKS_LIST) ? true : false,
