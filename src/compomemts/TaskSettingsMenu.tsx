@@ -7,6 +7,7 @@ import { SubtaskList } from "./SubtaskList";
 import { AddTaskToMyDayList } from "./AddTaskToMyDayList";
 import { AddPlanedDateToTask } from "./AddPlanedDateToTask";
 import { AddRepeatToTask } from "./AddRepeatToTask";
+import { TaskNote } from "./TaskNote";
 
 
 export const TaskSettingsMenu: FC = (): ReactElement => {
@@ -22,6 +23,7 @@ export const TaskSettingsMenu: FC = (): ReactElement => {
          <AddTaskToMyDayList task={task} />
          <AddPlanedDateToTask task={task} />
          <AddRepeatToTask task={task} />
+         <TaskNote task={task} />
       </Stack>
    )
 }

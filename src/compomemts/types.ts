@@ -85,3 +85,7 @@ export interface ITaskMenuItem {
 export interface IRepeatTriggerProps {
    onOpen: () => void
 }
+
+export interface ITaskNoteProps {
+   task: ITask
+}

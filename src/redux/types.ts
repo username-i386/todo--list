@@ -13,11 +13,7 @@ export interface ITask {
    isComplete: boolean
    repeat: IRepeatTask
    isImportant: boolean
-   date: {
-      year: number
-      month: number
-      day: number
-   } | undefined
+   date: IDate | undefined
    list: {
       isMyDayList: boolean
       isImportantList: boolean
@@ -80,6 +76,18 @@ export interface ISubtask {
 
 export interface ISubtaskState {
    subtasks: ISubtask[]
+}
+
+//!Note Slice------------------------------------------------------------------------------------------------------------------------------------
+
+export interface INoteState {
+   notes: INote[]
+}
+
+export interface INote {
+   noteId: string
+   taskId: string
+   title: string
 }
 
 //!------------------------------------------------------------------------------------------------------------------------------------
