@@ -8,6 +8,7 @@ import { AddTaskToMyDayList } from "./AddTaskToMyDayList";
 import { AddPlanedDateToTask } from "./AddPlanedDateToTask";
 import { AddRepeatToTask } from "./AddRepeatToTask";
 import { TaskNote } from "./TaskNote";
+import { TaskSettingsController } from "./TaskSettingsController";
 
 
 export const TaskSettingsMenu: FC = (): ReactElement => {
@@ -17,13 +18,18 @@ export const TaskSettingsMenu: FC = (): ReactElement => {
    if (task === undefined) return <></>
 
    return (
-      <Stack direction={'column'} px={2} spacing={4}>
-         <TaskListItem task={task} />
-         <SubtaskList />
-         <AddTaskToMyDayList task={task} />
-         <AddPlanedDateToTask task={task} />
-         <AddRepeatToTask task={task} />
-         <TaskNote task={task} />
+      <Stack direction={'column'} justify={'space-between'} h={'100%'}>
+         <Stack direction={'column'} px={2} spacing={4}>
+            <TaskListItem task={task} isSettings={true} />
+            <SubtaskList />
+            <AddTaskToMyDayList task={task} />
+            <AddPlanedDateToTask task={task} />
+            <AddRepeatToTask task={task} />
+            <TaskNote task={task} />
+         </Stack>
+         <Stack p={2}>
+            <TaskSettingsController task={task} />
+         </Stack>
       </Stack>
    )
 }
