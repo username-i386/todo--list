@@ -95,3 +95,9 @@ export interface ITaskNoteProps {
 export interface ITaskSettingsControllerProps {
    task: ITask
 }
+
+export interface IMainContentProps {
+   title: string
+   icon: FC
+   listName: string
+}
