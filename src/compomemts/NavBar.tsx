@@ -5,7 +5,6 @@ import { GoSun } from "react-icons/go";
 import { CiStar } from "react-icons/ci";
 import { LiaCalendarSolid } from "react-icons/lia";
 import { PiInfinityThin } from "react-icons/pi";
-import { GrCompliance } from "react-icons/gr";
 import { PiHouse } from "react-icons/pi";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
@@ -13,7 +12,8 @@ import { ToggleMenuIcon } from "./ToggleMenuIcon";
 
 export const NavBar: FC = (): ReactElement => {
 
-   const isMenuOpen = useSelector((state: RootState) => state.menuSlice.isMenuOpen)
+   const isMenuOpen = useSelector((state: RootState) => state.menuSlice.isMenuOpen);
+   const tasks = useSelector((state: RootState) => state.tasksSLice);
 
    const [selectedNavItem, setSelectedNavItem] = useState(0);
 
@@ -35,12 +35,11 @@ export const NavBar: FC = (): ReactElement => {
 
 
    const navItems = [
-      { url: '/',          title: 'Мой день',      icon: GoSun },
-      { url: '/important', title: 'Важно',         icon: CiStar },
-      { url: '/planed',    title: 'Запланировано', icon: LiaCalendarSolid },
-      { url: '/all',       title: 'Все',           icon: PiInfinityThin },
-      // { url: '/completed', title: 'Завершенные',   icon: GrCompliance },
-      { url: '/tasks',     title: 'Задачи',        icon: PiHouse },
+      { url: '/',          title: 'Мой день',      icon: GoSun,            amountTask: tasks.myDayList.length },
+      { url: '/important', title: 'Важно',         icon: CiStar,           amountTask: tasks.importantList.length },
+      { url: '/planed',    title: 'Запланировано', icon: LiaCalendarSolid, amountTask: tasks.planedList.length },
+      { url: '/all',       title: 'Все',           icon: PiInfinityThin,   amountTask: tasks.allList.length },
+      { url: '/tasks',     title: 'Задачи',        icon: PiHouse,          amountTask: tasks.tasksList.length },
    ];
 
    return (
@@ -56,12 +55,25 @@ export const NavBar: FC = (): ReactElement => {
                               w={'1px'} 
                               h={'auto'} 
                               bg={'blue.500'} />
-                           <Stack direction={'row'} align={'center'} pointerEvents='none' p={2}>
-                              <Icon as={navItem.icon} boxSize={6} pointerEvents='none' />
-                              <Text pointerEvents='none'
-                                 userSelect={'none'}
-                                 fontWeight={(index === selectedNavItem) ? '700' : '400'}>
-                                 {navItem.title}
+                           <Stack direction={'row'} 
+                              align={'center'} 
+                              justify={'space-between'} 
+                              pointerEvents='none' 
+                              p={2} 
+                              w={'100%'}
+                           >
+                              <Stack direction={'row'} align={'center'}>
+                                 <Icon as={navItem.icon} boxSize={6} pointerEvents='none' />
+                                 <Text pointerEvents='none'
+                                    userSelect={'none'}
+                                    fontWeight={(index === selectedNavItem) ? '700' : '400'}>
+                                    {navItem.title}
+                                 </Text>
+                              </Stack>
+                              <Text >
+                                 {
+                                    (navItem.amountTask > 0) ? navItem.amountTask : ''
+                                 }
                               </Text>
                            </Stack>
                         </Stack>
