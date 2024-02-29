@@ -6,7 +6,7 @@ import { TodoTitle } from "./TodoTitle";
 import { IMainContentProps } from "./types";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../redux/store";
-import { moveTaskFromMyDayToTasks } from "../utils/moveTaskFtomMyDayToTasks";
+import { moveTaskFromMyDayToTasks } from "../utils/moveTaskFromMyDayToTasks";
 import { deleteCompletedTask } from "../utils/deleteCompletedTask";
 
 
