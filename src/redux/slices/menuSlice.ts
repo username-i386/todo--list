@@ -2,9 +2,18 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { IMenuSliceState } from "../types";
 
 
-const initialState: IMenuSliceState = {
+const defaultState: IMenuSliceState = {
    isMenuOpen: true,
 }
+
+const initialState = (): IMenuSliceState => {
+   if (localStorage.getItem('navBar')) {
+      return JSON.parse(localStorage.navBar);
+   } else {
+      return defaultState;
+   }
+}
+
 const menuSlice = createSlice({
    name: 'menuSlice',
    initialState,

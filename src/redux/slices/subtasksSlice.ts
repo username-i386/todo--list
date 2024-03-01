@@ -2,8 +2,16 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 import { ISubtaskState, ISubtask } from "../types";
 
 
-const initialState: ISubtaskState = {
+const defaultState: ISubtaskState = {
     subtasks: []
+}
+
+const initialState = (): ISubtaskState => {
+    if (localStorage.getItem('subtask')) {
+        return JSON.parse(localStorage.subtask);
+    } else {
+        return defaultState;
+    }
 }
 
 const subtasksSlice = createSlice({

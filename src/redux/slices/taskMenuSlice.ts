@@ -3,9 +3,17 @@ import { ITaskMenuState } from "../types";
 
 
 
-const initialState: ITaskMenuState = {
+const defaultState: ITaskMenuState = {
    isOpen: false,
    task: undefined,
+}
+
+const initialState = (): ITaskMenuState => {
+   if (localStorage.getItem('taskMenu')) {
+      return JSON.parse(localStorage.taskMenu);
+   } else {
+      return defaultState;
+   }
 }
 
 const taskMenuSlice = createSlice({

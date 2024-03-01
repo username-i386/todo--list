@@ -1,35 +1,53 @@
 import { Grid, GridItem } from "@chakra-ui/react";
-import { FC, ReactElement } from "react";
+import { FC, ReactElement, useEffect } from "react";
 import { Header } from "./Header";
 import { NavBar } from "./NavBar";
-import { MainContent } from "./MainContent";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { TaskSettingsMenu } from "./TaskSettingsMenu";
 import { Outlet } from "react-router-dom";
+import { setNavbarToLocalStorage, setNotesToLocalStorage, setSubtasksToLocalStorage, setTaskListsToLocalStorage, setTaskMenuToLocalStorage } from "../utils/localStorage";
 
 export const App: FC = (): ReactElement => {
 
-  const isMenuOpen = useSelector((state: RootState) => state.menuSlice.isMenuOpen);
-  const isTaskMenuOpen = useSelector((state: RootState) => state.taskMenu.isOpen);
-  const tasks = useSelector((state: RootState) => state.tasksSLice)
-  console.log(tasks);
+  const states = useSelector((state: RootState) => state);
+
+
+  useEffect(() => {
+    setTaskListsToLocalStorage(states.tasksSLice);
+  }, [states.tasksSLice])
+
+  useEffect(() => {
+    setSubtasksToLocalStorage(states.subtasks);
+  }, [states.subtasks])
+
+  useEffect(() => {
+    setNotesToLocalStorage(states.notes);
+  }, [states.notes])
+
+  useEffect(() => {
+    setNavbarToLocalStorage(states.menuSlice);
+  }, [states.menuSlice])
+
+  useEffect(() => {
+    setTaskMenuToLocalStorage(states.taskMenu);
+  }, [states.taskMenu])
 
 
   function gridColumnsSize(): string {
-    if (isMenuOpen && isTaskMenuOpen) {
+    if (states.menuSlice.isMenuOpen && states.taskMenu.isOpen) {
       return '250px 1fr 350px';
     }
 
-    if (isMenuOpen && !isTaskMenuOpen) {
+    if (states.menuSlice.isMenuOpen && !states.taskMenu.isOpen) {
       return '250px 1fr 0';
     }
 
-    if (!isMenuOpen && isTaskMenuOpen) {
+    if (!states.menuSlice.isMenuOpen && states.taskMenu.isOpen) {
       return '0 1fr 350px';
     }
 
-    if (!isMenuOpen && !isTaskMenuOpen) {
+    if (!states.menuSlice.isMenuOpen && !states.taskMenu.isOpen) {
       return '0 1fr 0';
     }
 
