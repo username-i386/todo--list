@@ -17,8 +17,8 @@ export function getLocalDate(dayOfTheWeek?: number, monthIndex?: number) {
 
    return {
       today,
-      isWorkDayTomorrow: function() {
-         switch (this.getFutureDate(1).dayNumberInWeek) {
+      isWorkDayTomorrow: function(amountFutureDays: number) {
+         switch (this.getFutureDate(amountFutureDays).dayNumberInWeek) {
             case 0: return false;
             case 1: return true;
             case 2: return true;
@@ -26,7 +26,7 @@ export function getLocalDate(dayOfTheWeek?: number, monthIndex?: number) {
             case 4: return true;
             case 5: return true;
             case 6: return false;
-            default: return false;
+            default: return true;
          }
       },
       getFutureDate: function(amountFutureDays: number) {
