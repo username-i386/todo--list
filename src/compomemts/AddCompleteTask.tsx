@@ -5,13 +5,16 @@ import { IAddCompleteTaskProps } from "./types";
 import { AppDispatch, RootState } from "../redux/store";
 import { useDispatch, useSelector } from "react-redux";
 import { ITask } from "../redux/types";
-import { addTaskInAllList, addTaskInCompletedList, addTaskInMyDayList, addTaskInPlanedList, addTaskInTasksList, removeTaskInAllList, removeTaskInCompletedList, removeTaskInImportantList, removeTaskInMyDayList, removeTaskInPlanedList, removeTaskInTasksList } from "../redux/slices/tasksSlice";
+import { addTaskInAllList, addTaskInCompletedList, addTaskInMyDayList, addTaskInPlanedList, addTaskInRepeatList, addTaskInTasksList, removeTaskInAllList, removeTaskInCompletedList, removeTaskInImportantList, removeTaskInMyDayList, removeTaskInPlanedList, removeTaskInTasksList } from "../redux/slices/tasksSlice";
 import { MY_DAY_LIST, PLANED_LIST, TASKS_LIST } from "../constants/tasksListName";
+import { checkIsTaskInList } from "../utils/checkIsTaskInList";
 
 
 export const AddCompleteTask: FC<IAddCompleteTaskProps> = ({ task }): ReactElement => {
 
    const dispatch: AppDispatch = useDispatch();
+
+   const repeatList = useSelector((state: RootState) => state.tasksSLice.repeatList);
 
 
    const completeTask = (): ITask => ({
@@ -33,6 +36,11 @@ export const AddCompleteTask: FC<IAddCompleteTaskProps> = ({ task }): ReactEleme
    }
 
    function removeTask() {
+      if (task.repeat.isRepeat) {
+         if (!checkIsTaskInList(repeatList, task)) {
+            dispatch(addTaskInRepeatList(task));
+         }
+      }
       switch (task.listName) {
          case MY_DAY_LIST:
             dispatch(removeTaskInMyDayList(task.id));

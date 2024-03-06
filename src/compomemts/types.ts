@@ -43,7 +43,7 @@ export interface ICreateTaskMenuItemProps {
    variant: string
    task?: ITask
    onClose: () => void
-   handlerMenuItem: (variant: string, dispatch: AppDispatch, onClose: () => void, task?: ITask) => void
+   handlerMenuItem: (variant: string, dispatch: AppDispatch,  task?: ITask) => void
 }
 
 export interface ISubtaskListItemProps {
@@ -72,9 +72,8 @@ export interface IAddRepeatToTaskProps {
 export interface IRepeatTaskMenuProps {
    isNewTask: boolean
    taskMenuItems: ITaskMenuItem[]
-   // deleteRepeat: () => void
    task?: ITask
-   handlerMenuItem: (variant: string, dispatch: AppDispatch, onClose: () => void, task?: ITask) => void
+   handlerMenuItem: (variant: string, dispatch: AppDispatch, task?: ITask) => void
 }
 
 export interface ITaskMenuItem {

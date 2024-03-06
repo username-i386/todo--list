@@ -2,13 +2,16 @@ import { Accordion, AccordionItem, AccordionButton, AccordionIcon, AccordionPane
 import { FC, ReactElement, useEffect, useState } from "react";
 import { TaskList } from "./TaskList";
 import { COMPLETED_LIST, IMPORTANT_LIST, MY_DAY_LIST, PLANED_LIST, TASKS_LIST } from "../constants/tasksListName";
-import { useSelector } from "react-redux";
-import { RootState } from "../redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../redux/store";
 import { ITask } from "../redux/types";
 import { ITaskListMenuProps } from "./types";
+import { moveTaskFromRepeatListToMyDayList } from "../utils/moveTaskFromRepeatListToMyDayList";
 
 
 export const TaskListMenu: FC<ITaskListMenuProps> = ({ listName }): ReactElement => {
+
+   const dispatch: AppDispatch = useDispatch();
 
    const titleColor = useColorModeValue('gray.600', 'gray.300');
 
@@ -17,6 +20,9 @@ export const TaskListMenu: FC<ITaskListMenuProps> = ({ listName }): ReactElement
    const [taskList, setTaskList] = useState<ITask[]>([]);
 
    useEffect(() => {
+      
+      
+      moveTaskFromRepeatListToMyDayList(taskLists.repeatList, dispatch);
       switch (listName) {
          case MY_DAY_LIST:
             setTaskList(taskLists.myDayList);

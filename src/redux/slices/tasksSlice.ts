@@ -1,9 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { ITask, ITasksState } from "../types";
-import { AppDispatch } from "../store";
-import { useDispatch } from "react-redux";
+import { REPEAT_DAILY } from "../../constants/createTaskMenuItemsVariant";
 
-// const dispatch: AppDispatch = useDispatch();
 
 const defaultState: ITasksState = {
    myDayList: [
@@ -13,29 +11,33 @@ const defaultState: ITasksState = {
       //    listName: 'MY_DAY_LIST',
       //    isComplete: false,
       //    repeat: {
-      //       isRepeat: false,
-      //       nextDateRepeat: undefined,
-      //       repeatVariant: '',
+      //       isRepeat: true,
+      //       nextDateRepeat: {
+      //          year: 2024,
+      //          month: 3,
+      //          day: 5,
+      //       },
+      //       repeatVariant: REPEAT_DAILY,
       //    },
       //    isImportant: false,
       //    planedDate: {
       //       year: 2024,
-      //       month: 2,
-      //       day: 29,
+      //       month: 3,
+      //       day: 4,
       //    },
       //    createdDate: {
       //       year: 2024,
-      //       month: 2,
-      //       day: 29,
+      //       month: 3,
+      //       day: 4,
       //    },
       //    list: {
       //       isAllList: true,
       //       isTasksList: false,
       //       isMyDayList: true,
-      //       isPlanedList: false,
+      //       isPlanedList: true,
       //       isCompletedList: false,
       //       isImportantList: false,
-      //       isRepeatList: false,
+      //       isRepeatList: true,
       //    },
       // },
       // {
@@ -106,7 +108,43 @@ const defaultState: ITasksState = {
    allList: [],
    completedList: [],
    tasksList: [],
-   repeatList: [],
+   repeatList: [
+      // {
+      //    id: '0',
+      //    title: 'taskTitletaskTitletaskTitletaskTitletaskTitle',
+      //    listName: 'MY_DAY_LIST',
+      //    isComplete: false,
+      //    repeat: {
+      //       isRepeat: true,
+      //       nextDateRepeat: {
+      //          year: 2024,
+      //          month: 3,
+      //          day: 5,
+      //       },
+      //       repeatVariant: REPEAT_DAILY,
+      //    },
+      //    isImportant: false,
+      //    planedDate: {
+      //       year: 2024,
+      //       month: 3,
+      //       day: 4,
+      //    },
+      //    createdDate: {
+      //       year: 2024,
+      //       month: 3,
+      //       day: 4,
+      //    },
+      //    list: {
+      //       isAllList: true,
+      //       isTasksList: false,
+      //       isMyDayList: true,
+      //       isPlanedList: true,
+      //       isCompletedList: false,
+      //       isImportantList: false,
+      //       isRepeatList: true,
+      //    },
+      // },
+   ],
 }
 
 const initialState = (): ITasksState => {
@@ -143,25 +181,25 @@ const tasksSlice = createSlice({
          state.repeatList.push(action.payload);
       },
       removeTaskInMyDayList: (state: ITasksState, action: PayloadAction<string>): void => {
-         state.myDayList = state.myDayList.filter(task => task.id !== action.payload)
+         state.myDayList = state.myDayList.filter(task => task.id !== action.payload);
       },
       removeTaskInImportantList: (state: ITasksState, action: PayloadAction<string>): void => {
-         state.importantList = state.importantList.filter(task => task.id !== action.payload)
+         state.importantList = state.importantList.filter(task => task.id !== action.payload);
       },
       removeTaskInPlanedList: (state: ITasksState, action: PayloadAction<string>): void => {
-         state.planedList = state.planedList.filter(task => task.id !== action.payload)
+         state.planedList = state.planedList.filter(task => task.id !== action.payload);
       },
       removeTaskInAllList: (state: ITasksState, action: PayloadAction<string>): void => {
-         state.allList = state.allList.filter(task => task.id !== action.payload)
+         state.allList = state.allList.filter(task => task.id !== action.payload);
       },
       removeTaskInCompletedList: (state: ITasksState, action: PayloadAction<string>): void => {
-         state.completedList = state.completedList.filter(task => task.id !== action.payload)
+         state.completedList = state.completedList.filter(task => task.id !== action.payload);
       },
       removeTaskInTasksList: (state: ITasksState, action: PayloadAction<string>): void => {
-         state.tasksList = state.tasksList.filter(task => task.id !== action.payload)
+         state.tasksList = state.tasksList.filter(task => task.id !== action.payload);
       },
       removeTaskInRepeatList: (state: ITasksState, action: PayloadAction<string>): void => {
-         state.repeatList = state.repeatList.filter(task => task.id !== action.payload)
+         state.repeatList = state.repeatList.filter(task => task.id !== action.payload);
       },
    }
 })

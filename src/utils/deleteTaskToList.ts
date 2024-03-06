@@ -1,4 +1,5 @@
-import { removeTaskInAllList, 
+import { addTaskInRepeatList, 
+    removeTaskInAllList, 
     removeTaskInCompletedList, 
     removeTaskInImportantList, 
     removeTaskInMyDayList, 
@@ -7,9 +8,17 @@ import { removeTaskInAllList,
     removeTaskInTasksList } from "../redux/slices/tasksSlice";
 import { AppDispatch } from "../redux/store";
 import { ITask } from "../redux/types";
+import { checkIsTaskInList } from "./checkIsTaskInList";
 
 
-export function deleteTaskToList(task: ITask, dispatch: AppDispatch, exception?: string[]) {
+export function deleteTaskToList(task: ITask, dispatch: AppDispatch, taskList?: ITask[]) {
+    if (task.repeat.isRepeat) {
+        const repeatList: ITask[] = taskList ? taskList : [];
+        if (!checkIsTaskInList(repeatList, task)) {
+            dispatch(addTaskInRepeatList(task));
+        }
+    }
+
     if (task.list.isAllList) {
         dispatch(removeTaskInAllList(task.id));
     }
@@ -28,10 +37,6 @@ export function deleteTaskToList(task: ITask, dispatch: AppDispatch, exception?:
 
     if (task.list.isPlanedList) {
         dispatch(removeTaskInPlanedList(task.id));
-    }
-
-    if (task.list.isRepeatList) {
-        dispatch(removeTaskInRepeatList(task.id));
     }
 
     if (task.list.isTasksList) {

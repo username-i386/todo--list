@@ -5,7 +5,7 @@ import { IRepeatTask } from "../redux/types";
 import { getLocalDate } from "./getLocalDate";
 
 
-export function handlerToRepeatTaskMenu(variant: string, dispatch: AppDispatch, onClose: () => void) {
+export function handlerToRepeatTaskMenu(variant: string, dispatch: AppDispatch) {
     switch (variant) {
         case REPEAT_DAILY:
             const dailyRepeatTask: IRepeatTask = {
@@ -41,8 +41,9 @@ export function handlerToRepeatTaskMenu(variant: string, dispatch: AppDispatch, 
             break;
         case REPEAT_WORK_DAY:
             let nextWorkDay;
-            for (let i = 1; true; i++) {
-                if (getLocalDate().isWorkDayTomorrow()) {
+            for (let i = 1; i < 7; i++) {
+                console.log(i);
+                if (getLocalDate().isWorkDayTomorrow(i)) {
                     nextWorkDay = getLocalDate().getFutureDate(i);
                     break;
                 }
@@ -55,6 +56,4 @@ export function handlerToRepeatTaskMenu(variant: string, dispatch: AppDispatch, 
             dispatch(setRepeatToTask(workDayRepeatTask));
             break;
     }
-
-    onClose();
 }

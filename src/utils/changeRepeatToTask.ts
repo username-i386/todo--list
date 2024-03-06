@@ -1,19 +1,18 @@
 import { REPEAT_DAILY, REPEAT_MONTHLY, REPEAT_WEEKLY, REPEAT_YEARLY, REPEAT_WORK_DAY } from "../constants/createTaskMenuItemsVariant";
-import { setRepeatToTask } from "../redux/slices/repeatTaskSlice";
 import { AppDispatch } from "../redux/store";
 import { IRepeatTask, ITask } from "../redux/types";
 import { addTaskToList } from "./addTaskToList";
 import { deleteTaskToList } from "./deleteTaskToList";
 import { getLocalDate } from "./getLocalDate";
 
-const updatedTask = (task: ITask, repeat: IRepeatTask): ITask => {
+const updatedTask = (task: ITask, updatedRepeat: IRepeatTask): ITask => {
     return {
         ...task,
-        repeat: repeat,
+        repeat: updatedRepeat,
     }
 }
 
-export function changeRepeatToTask(variant: string, dispatch: AppDispatch, onClose: () => void, task?: ITask) {
+export function changeRepeatToTask(variant: string, dispatch: AppDispatch, task?: ITask) {
     if (!task) return;
     switch (variant) {
         case REPEAT_DAILY:
@@ -58,8 +57,8 @@ export function changeRepeatToTask(variant: string, dispatch: AppDispatch, onClo
             break;
         case REPEAT_WORK_DAY:
             let nextWorkDay;
-            for (let i = 1; true; i++) {
-                if (getLocalDate().isWorkDayTomorrow()) {
+            for (let i = 1; i < 7; i++) {
+                if (getLocalDate().isWorkDayTomorrow(i)) {
                     nextWorkDay = getLocalDate().getFutureDate(i);
                     break;
                 }
@@ -74,7 +73,4 @@ export function changeRepeatToTask(variant: string, dispatch: AppDispatch, onClo
             addTaskToList(updatedTask(task, workDayRepeatTask), dispatch);
             break;
     }
-
-    onClose();
 }
-
