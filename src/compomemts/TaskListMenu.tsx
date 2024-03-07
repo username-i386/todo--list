@@ -1,7 +1,7 @@
 import { Accordion, AccordionItem, AccordionButton, AccordionIcon, AccordionPanel, Box, Text, useColorModeValue } from "@chakra-ui/react";
 import { FC, ReactElement, useEffect, useState } from "react";
 import { TaskList } from "./TaskList";
-import { COMPLETED_LIST, IMPORTANT_LIST, MY_DAY_LIST, PLANED_LIST, TASKS_LIST } from "../constants/tasksListName";
+import { COMPLETED_LIST, IMPORTANT_LIST, MY_DAY_LIST, PLANED_LIST, SEARCH_LIST, TASKS_LIST } from "../constants/tasksListName";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../redux/store";
 import { ITask } from "../redux/types";
@@ -16,12 +16,12 @@ export const TaskListMenu: FC<ITaskListMenuProps> = ({ listName }): ReactElement
    const titleColor = useColorModeValue('gray.600', 'gray.300');
 
    const taskLists = useSelector((state: RootState) => state.tasksSLice);
+   const searchList = useSelector((state: RootState) => state.search.searchTaskList);
+
 
    const [taskList, setTaskList] = useState<ITask[]>([]);
 
    useEffect(() => {
-      
-      
       moveTaskFromRepeatListToMyDayList(taskLists.repeatList, dispatch);
       switch (listName) {
          case MY_DAY_LIST:
@@ -39,12 +39,15 @@ export const TaskListMenu: FC<ITaskListMenuProps> = ({ listName }): ReactElement
          case TASKS_LIST:
             setTaskList(taskLists.tasksList);
             break;
+         case SEARCH_LIST:
+            setTaskList(searchList);
+            break;
          default:
             setTaskList(taskLists.allList);
             break;
       }
-   }, [taskLists])
-
+   }, [taskLists, searchList])
+   
    return (
       <Accordion defaultIndex={[0]} allowMultiple>
          {

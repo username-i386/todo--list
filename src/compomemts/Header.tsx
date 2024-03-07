@@ -4,6 +4,7 @@ import { ImSearch } from "react-icons/im";
 import { CiSettings } from "react-icons/ci";
 import { ChangeColorMode } from "./ChangeColorMode";
 import { LuListTodo } from "react-icons/lu";
+import { SearchBar } from "./SearchBar";
 
 
 export const Header: FC = (): ReactElement => {
@@ -19,15 +20,10 @@ export const Header: FC = (): ReactElement => {
                </Text>
             </Stack>
             <Box w={'50%'}>
-               <InputGroup>
-                  <Input variant='filled' />
-                  <InputRightElement pointerEvents='none'>
-                     <ImSearch />
-                  </InputRightElement>
-               </InputGroup>
+               <SearchBar />
             </Box>
             <Stack direction={'row'}>
-               <Icon as={CiSettings} boxSize={8} color={'white'} cursor={'pointer'} />
+               {/* <Icon as={CiSettings} boxSize={8} color={'white'} cursor={'pointer'} /> */}
                <ChangeColorMode />
             </Stack>
          </Stack>

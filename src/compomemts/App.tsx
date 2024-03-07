@@ -11,7 +11,8 @@ import { setNavbarToLocalStorage, setNotesToLocalStorage, setSubtasksToLocalStor
 export const App: FC = (): ReactElement => {
 
   const states = useSelector((state: RootState) => state);
-
+  console.log(states.tasksSLice);
+  
 
   useEffect(() => {
     setTaskListsToLocalStorage(states.tasksSLice);

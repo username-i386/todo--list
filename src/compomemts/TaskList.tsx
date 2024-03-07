@@ -1,19 +1,18 @@
-import { Box, Icon, Stack, Text } from "@chakra-ui/react"
-import { FC, ReactElement, useEffect, useState } from "react"
-import { FaCheck } from "react-icons/fa";
-import { CiStar } from "react-icons/ci";
+import { Stack } from "@chakra-ui/react";
+import { FC, ReactElement, useEffect, useState } from "react";
 import { ITaskListProps } from "./types";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { ITask } from "../redux/types";
-import { COMPLETED_LIST, IMPORTANT_LIST, MY_DAY_LIST, PLANED_LIST, TASKS_LIST } from "../constants/tasksListName";
-import { GoSun } from "react-icons/go";
+import { COMPLETED_LIST, IMPORTANT_LIST, MY_DAY_LIST, PLANED_LIST, SEARCH_LIST, TASKS_LIST } from "../constants/tasksListName";
 import { TaskListItem } from "./TaskListItem";
 
 
 export const TaskList: FC<ITaskListProps> = ({ listName }): ReactElement => {
    
    const taskLists = useSelector((state: RootState) => state.tasksSLice);
+   const searchList = useSelector((state: RootState) => state.search.searchTaskList);
+
    const [taskList, setTaskList] = useState<ITask[]>([]);
 
    useEffect(() => {
@@ -33,11 +32,14 @@ export const TaskList: FC<ITaskListProps> = ({ listName }): ReactElement => {
          case TASKS_LIST:
             setTaskList(taskLists.tasksList);
             break;
+         case SEARCH_LIST:
+            setTaskList(searchList);
+            break;
          default:
             setTaskList(taskLists.allList);
             break;
       }
-   }, [taskLists])
+   }, [taskLists, searchList])
 
    return (
       <Stack direction={'column'} p={4}>

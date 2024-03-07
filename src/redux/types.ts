@@ -91,4 +91,15 @@ export interface INote {
    title: string
 }
 
+//!Search Slice------------------------------------------------------------------------------------------------------------------------------------
+
+export interface ISearchRequest {
+   searchTitle: string
+   tasksList: ITask[]
+}
+
+export interface ISearchState {
+   searchTaskList: ITask[]
+}
+
 //!------------------------------------------------------------------------------------------------------------------------------------

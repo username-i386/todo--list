@@ -6,6 +6,7 @@ import repeatTaskReducer from "./slices/repeatTaskSlice";
 import taskMenuReducer from "./slices/taskMenuSlice";
 import subtasksReducer from "./slices/subtasksSlice";
 import notesReducer from "./slices/notesSlice";
+import searchReducer from "./slices/searchSlice";
 
 
 
@@ -18,6 +19,7 @@ export const store = configureStore({
       taskMenu: taskMenuReducer,
       subtasks: subtasksReducer,
       notes: notesReducer,
+      search: searchReducer,
    }
 })
 

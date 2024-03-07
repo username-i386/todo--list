@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../redux/store";
 import { deleteCompletedTask } from "../utils/deleteCompletedTask";
 import { moveTaskFromMyDayToTasks } from "../utils/moveTaskFtomMyDayToTasks";
+import { SEARCH_LIST } from "../constants/tasksListName";
 
 
 export const MainContent: FC<IMainContentProps> = ({
@@ -18,15 +19,26 @@ export const MainContent: FC<IMainContentProps> = ({
    
    const dispatch: AppDispatch = useDispatch();
    const taskLists = useSelector((state: RootState) => state.tasksSLice);
+   const searchList = useSelector((state: RootState) => state.search.searchTaskList);
+   
 
    moveTaskFromMyDayToTasks(taskLists.myDayList, dispatch);
    deleteCompletedTask(taskLists.completedList, dispatch);
 
    return (
-      <Box>
-         <TodoTitle title={title} icon={icon} />
-         <CreateTask listName={listName} />
-         <TaskListMenu listName={listName} />
-      </Box>
+      <>
+         {
+            (searchList.length === 0) ? 
+               <Box>
+                  <TodoTitle title={title} icon={icon} />
+                  <CreateTask listName={listName} />
+                  <TaskListMenu listName={listName} />
+               </Box>
+            : <Box>
+               <TaskListMenu listName={SEARCH_LIST} />
+            </Box>
+         }
+      </>
+      
    )
 }
