@@ -10,6 +10,7 @@ import { checkIsTaskInList } from "../utils/checkIsTaskInList";
 import { ADD_TASK_TO_MY_DAY_LIST, DELETE_TASK_TO_MY_DAY_LIST } from "../constants/addTaskToMyDayListTitle";
 import { ITask } from "../redux/types";
 import { getLocalDate } from "../utils/getLocalDate";
+import { MY_DAY_LIST } from "../constants/tasksListName";
 
 
 export const AddTaskToMyDayList: FC<IAddTaskToMyDayListProps> = ({ task }): ReactElement => {
@@ -35,10 +36,16 @@ export const AddTaskToMyDayList: FC<IAddTaskToMyDayListProps> = ({ task }): Reac
     const updatedTask = (task: ITask): ITask => {
         return {
             ...task,
+            listName: MY_DAY_LIST,
             createdDate: {
                 year: getLocalDate().today.year,
                 month: getLocalDate().today.month,
                 day: getLocalDate().today.day,
+            },
+            list: {
+                ...task.list,
+                isMyDayList: true,
+                isTasksList: false,
             },
         }
     }

@@ -1,9 +1,11 @@
 import { REPEAT_DAILY, REPEAT_MONTHLY, REPEAT_WEEKLY, REPEAT_YEARLY, REPEAT_WORK_DAY } from "../constants/createTaskMenuItemsVariant";
+import { toggleTaskMenu } from "../redux/slices/taskMenuSlice";
 import { AppDispatch } from "../redux/store";
 import { IRepeatTask, ITask } from "../redux/types";
 import { addTaskToList } from "./addTaskToList";
 import { deleteTaskToList } from "./deleteTaskToList";
 import { getLocalDate } from "./getLocalDate";
+import { updateTaskInSettingsBar } from "./updateTaskInSettingsBar";
 
 const updatedTask = (task: ITask, updatedRepeat: IRepeatTask): ITask => {
     return {
@@ -14,6 +16,10 @@ const updatedTask = (task: ITask, updatedRepeat: IRepeatTask): ITask => {
 
 export function changeRepeatToTask(variant: string, dispatch: AppDispatch, task?: ITask) {
     if (!task) return;
+    const taskMenu = {
+        isOpen: true,
+        task: task,
+    }
     switch (variant) {
         case REPEAT_DAILY:
             const dailyRepeatTask: IRepeatTask = {
@@ -24,6 +30,7 @@ export function changeRepeatToTask(variant: string, dispatch: AppDispatch, task?
             
             deleteTaskToList(task, dispatch);
             addTaskToList(updatedTask(task, dailyRepeatTask), dispatch);
+            taskMenu.task = updatedTask(task, dailyRepeatTask);
             break;
         case REPEAT_MONTHLY:
             const monthlyRepeatTask: IRepeatTask = {
@@ -34,6 +41,7 @@ export function changeRepeatToTask(variant: string, dispatch: AppDispatch, task?
 
             deleteTaskToList(task, dispatch);
             addTaskToList(updatedTask(task, monthlyRepeatTask), dispatch);
+            taskMenu.task = updatedTask(task, monthlyRepeatTask);
             break;
         case REPEAT_WEEKLY:
             const weeklyRepeatTask: IRepeatTask = {
@@ -44,6 +52,7 @@ export function changeRepeatToTask(variant: string, dispatch: AppDispatch, task?
             
             deleteTaskToList(task, dispatch);
             addTaskToList(updatedTask(task, weeklyRepeatTask), dispatch);
+            taskMenu.task = updatedTask(task, weeklyRepeatTask);
             break;
         case REPEAT_YEARLY:
             const yearlyRepeatTask: IRepeatTask = {
@@ -54,6 +63,7 @@ export function changeRepeatToTask(variant: string, dispatch: AppDispatch, task?
             
             deleteTaskToList(task, dispatch);
             addTaskToList(updatedTask(task, yearlyRepeatTask), dispatch);
+            taskMenu.task = updatedTask(task, yearlyRepeatTask);
             break;
         case REPEAT_WORK_DAY:
             let nextWorkDay;
@@ -71,6 +81,8 @@ export function changeRepeatToTask(variant: string, dispatch: AppDispatch, task?
             
             deleteTaskToList(task, dispatch);
             addTaskToList(updatedTask(task, workDayRepeatTask), dispatch);
+            taskMenu.task = updatedTask(task, workDayRepeatTask);
             break;
     }
+    updateTaskInSettingsBar(dispatch, taskMenu.task);
 }

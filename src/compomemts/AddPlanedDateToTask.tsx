@@ -1,13 +1,14 @@
-import { Button, Icon, Input, Stack, Text } from "@chakra-ui/react";
+import { Button, Icon, Input, Stack } from "@chakra-ui/react";
 import { FC, ReactElement, useEffect, useState } from "react";
 import { IAddPlanedDateToTaskProps } from "./types";
 import { LiaCalendarSolid } from "react-icons/lia";
 import { IDate, ITask } from "../redux/types";
 import { AppDispatch } from "../redux/store";
 import { useDispatch } from "react-redux";
-import { addTaskInAllList, addTaskInCompletedList, addTaskInImportantList, addTaskInMyDayList, addTaskInPlanedList, addTaskInRepeatList, addTaskInTasksList, removeTaskInAllList, removeTaskInCompletedList, removeTaskInImportantList, removeTaskInMyDayList, removeTaskInPlanedList, removeTaskInRepeatList, removeTaskInTasksList } from "../redux/slices/tasksSlice";
 import { addTaskToList } from "../utils/addTaskToList";
 import { deleteTaskToList } from "../utils/deleteTaskToList";
+import { toggleTaskMenu } from "../redux/slices/taskMenuSlice";
+import { updateTaskInSettingsBar } from "../utils/updateTaskInSettingsBar";
 
 
 export const AddPlanedDateToTask: FC<IAddPlanedDateToTaskProps> = ({ task }): ReactElement => {
@@ -34,7 +35,7 @@ export const AddPlanedDateToTask: FC<IAddPlanedDateToTaskProps> = ({ task }): Re
             month: +dateInput.value.split('-')[1],
             day: +dateInput.value.split('-')[2],
         }
-        const planedTask: ITask = {
+        const updatedTask: ITask = {
             ...task,
             planedDate: datePlanedTask,
             list: {
@@ -42,14 +43,12 @@ export const AddPlanedDateToTask: FC<IAddPlanedDateToTaskProps> = ({ task }): Re
                 isPlanedList: true,
             },
         }
-        deleteTaskToList(planedTask, dispatch);
-        addTaskToList(planedTask, dispatch);
+        deleteTaskToList(updatedTask, dispatch);
+        addTaskToList(updatedTask, dispatch);
+        updateTaskInSettingsBar(dispatch, updatedTask);
     }
 
-    
 
-
-    
     return (
         <Stack direction={'row'} align={'center'}>
             <Stack>

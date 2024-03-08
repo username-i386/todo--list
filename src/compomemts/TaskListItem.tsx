@@ -1,28 +1,17 @@
-import { Stack, Icon, Box, Text, useColorModeValue } from "@chakra-ui/react";
+import { Stack, Box, Text, useColorModeValue } from "@chakra-ui/react";
 import { FC, ReactElement } from "react";
-import { FaCheck } from "react-icons/fa";
-import { GoSun } from "react-icons/go";
-import { MY_DAY_LIST } from "../constants/tasksListName";
 import { ITaskListItemState } from "./types";
 import { AddImportantTask } from "./AddImportantTask";
 import { AddCompleteTask } from "./AddCompleteTask";
-import { PlanedTaskMenu } from "./PlanedTaskMenu";
-import { LiaCalendarSolid } from "react-icons/lia";
-import { outputDate } from "../utils/outputDeadline";
 import { RootState } from "../redux/store";
 import { useDispatch, useSelector } from "react-redux";
-import { PiRepeatLight } from "react-icons/pi";
-import { outputRepeatVariant } from "../utils/outputRepeatVariant";
 import { toggleTaskMenu } from "../redux/slices/taskMenuSlice";
+import { TaskAttribute } from "./TaskAttributes";
 
 
 export const TaskListItem: FC<ITaskListItemState> = ({ task, isSettings }): ReactElement => {
 
    const dispatch = useDispatch();
-   
-   const itemsBorder = useColorModeValue('blue.500', 'blue.200')
-   
-   const planedTaskDate = useSelector((state: RootState) => state.planedTask.date);
 
    function openTaskMenu() {
       dispatch(toggleTaskMenu({
@@ -43,40 +32,7 @@ export const TaskListItem: FC<ITaskListItemState> = ({ task, isSettings }): Reac
             </Box>
             {
                !isSettings ?
-                  <Stack direction={'row'} align={'center'} pt={1}>
-                     {
-                        (task.listName === MY_DAY_LIST) ?
-                           <Stack direction={'row'} align={'center'}>
-                              <Icon as={GoSun} boxSize={3} />
-                              <Text fontSize={'xs'}>Мой день</Text>
-                           </Stack>
-                        : <></>
-                     }
-                     {
-                        (task.planedDate?.day && task.planedDate.month && task.planedDate.year) ?
-                           <Stack direction={'row'} align={'center'} gap={2}>
-                              <Icon as={LiaCalendarSolid} boxSize={4} />
-                              <Text fontSize={'xs'}>
-                                 {
-                                    outputDate(task.planedDate, true)
-                                 }
-                              </Text>
-                           </Stack>
-                        : <></>
-                     }
-                     {
-                        task.repeat.isRepeat ? 
-                           <Stack direction={'row'} align={'center'} gap={2}>
-                              <Icon as={PiRepeatLight} boxSize={4} />
-                              <Text fontSize={'xs'}>
-                                 {
-                                    outputRepeatVariant(task.repeat.repeatVariant)
-                                 }
-                              </Text>
-                           </Stack>
-                        : <></>
-                     }
-                  </Stack>
+                  <TaskAttribute task={task} />
                : <></>
             }
          </Box>

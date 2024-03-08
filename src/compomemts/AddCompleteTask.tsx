@@ -8,6 +8,7 @@ import { ITask } from "../redux/types";
 import { addTaskInAllList, addTaskInCompletedList, addTaskInMyDayList, addTaskInPlanedList, addTaskInRepeatList, addTaskInTasksList, removeTaskInAllList, removeTaskInCompletedList, removeTaskInImportantList, removeTaskInMyDayList, removeTaskInPlanedList, removeTaskInTasksList } from "../redux/slices/tasksSlice";
 import { MY_DAY_LIST, PLANED_LIST, TASKS_LIST } from "../constants/tasksListName";
 import { checkIsTaskInList } from "../utils/checkIsTaskInList";
+import { updateTaskInSettingsBar } from "../utils/updateTaskInSettingsBar";
 
 
 export const AddCompleteTask: FC<IAddCompleteTaskProps> = ({ task }): ReactElement => {
@@ -15,19 +16,16 @@ export const AddCompleteTask: FC<IAddCompleteTaskProps> = ({ task }): ReactEleme
    const dispatch: AppDispatch = useDispatch();
 
    const repeatList = useSelector((state: RootState) => state.tasksSLice.repeatList);
+   const taskMenu = useSelector((state: RootState) => state.taskMenu);
 
 
    const completeTask = (): ITask => ({
       ...task,
       isComplete: !task.isComplete,
       list: {
+         ...task.list,
          isAllList: true,
          isCompletedList: true,
-         isImportantList: task.list.isImportantList,
-         isMyDayList: task.list.isMyDayList,
-         isPlanedList: task.list.isPlanedList,
-         isTasksList: task.list.isTasksList,
-         isRepeatList: task.list.isRepeatList,
       }
    })
 
@@ -66,9 +64,9 @@ export const AddCompleteTask: FC<IAddCompleteTaskProps> = ({ task }): ReactEleme
       if (task.list.isTasksList) {
          dispatch(addTaskInTasksList(completeTask()));
       }
-
+      
       dispatch(addTaskInAllList(completeTask()));
-
+      
       dispatch(removeTaskInCompletedList(task.id));
    }
 
@@ -78,6 +76,9 @@ export const AddCompleteTask: FC<IAddCompleteTaskProps> = ({ task }): ReactEleme
          removeTask();
       } else {
          returnTaskInComplete();
+      }
+      if (taskMenu.isOpen) {
+         updateTaskInSettingsBar(dispatch, completeTask());
       }
    }
 
