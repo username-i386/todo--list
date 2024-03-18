@@ -2,13 +2,14 @@ import { IDate } from "../redux/types";
 import { getLocalDate } from "./getLocalDate";
 
 
-export function outputDate(planedTaskDate: IDate, isDeadline: boolean): string {
+export function outputDate(planedTaskDate: IDate, isCreatedDate: boolean): string {
 
-   const title: string = isDeadline ? 'Срок' : 'Cоздано';
+   // const title: string = isCreatedDate ? 'Срок' : 'Cоздано';
+   const today: IDate = getLocalDate().today;
 
-   if (planedTaskDate?.year === getLocalDate().today.year) {
-      if (planedTaskDate?.month === getLocalDate().today.month) {
-         if (planedTaskDate?.day === getLocalDate().today.day) {
+   if (planedTaskDate?.year === today.year) {
+      if (planedTaskDate?.month === today.month) {
+         if (planedTaskDate?.day === today.day) {
             return 'Сегодня';
          } else if (planedTaskDate?.day === getLocalDate().today.day + 1) {
             return 'Завтра';
@@ -19,8 +20,37 @@ export function outputDate(planedTaskDate: IDate, isDeadline: boolean): string {
    
    const date = new Date(planedTaskDate.year, planedTaskDate.month - 1, planedTaskDate.day);
 
-   return title + ' ' +
-      getLocalDate(date.getDay()).dayShortName() + ', ' +
-      planedTaskDate.day + ' ' +
-      getLocalDate(undefined, date.getMonth()).monthName();
+   const outputDate = getLocalDate(date.getDay()).dayShortName() + ', ' +
+                     planedTaskDate.day + ' ' +
+                     getLocalDate(undefined, date.getMonth()).monthName();
+
+   if (isCreatedDate) {
+      return 'Создано: ' + outputDate;
+   } else if (isExpiredDate(planedTaskDate)) {
+      return 'Просрочено, ' + outputDate;
+   } else {
+      return 'Срок: ' + outputDate;
+   }
+}
+
+export function isExpiredDate(planedTaskDate: IDate): boolean {
+   const today: IDate = getLocalDate().today;
+
+   if (planedTaskDate.year < today.year) {
+      return true;
+   } else if (planedTaskDate.year === today.year) {
+      if (planedTaskDate.month < today.month) {
+         return true;
+      } else if (planedTaskDate.month === today.month) {
+         if (planedTaskDate.day < today.day) {
+            return true;
+         } else {
+            return false;
+         }
+      } else {
+         return false;
+      }
+   } else {
+      return false;
+   }
 }

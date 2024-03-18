@@ -32,7 +32,7 @@ export const TaskSettingsController: FC<ITaskSettingsControllerProps> = ({ task 
                 </Stack>
                 <Stack>
                     <Text>
-                        {outputDate(task.createdDate, false)}
+                        {outputDate(task.createdDate, true)}
                     </Text>
                 </Stack>
                 <Stack cursor={'pointer'} onClick={onOpen}>
