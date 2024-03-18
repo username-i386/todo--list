@@ -43,49 +43,46 @@ export const RepeatTaskMenu: FC<IRepeatTaskMenuProps> = ({
                      isNewTask ? <RepeatTriggerForNewTask onOpen={onOpen} />
                         : <RepeatTriggerForCurrentTask onOpen={onOpen} />
                   }
-                  
                </Stack>
             </PopoverTrigger>
-            <Portal>
-               <PopoverContent w={'auto'}>
-                  <PopoverArrow />
-                  <PopoverHeader textAlign={'center'}>
-                     Повтор
-                  </PopoverHeader>
-                     <PopoverBody p={0}>
-                        <Stack direction={'column'} gap={0}>
-                           {
-                              taskMenuItems.map((taskMenuItem, index): ReactElement => {
-                                 return (
-                                    <CreateTaskMenuItem key={index}
-                                       icon={taskMenuItem.icon}
-                                       title={taskMenuItem.title}
-                                       dayShortName={taskMenuItem.dayShortName}
-                                       variant={taskMenuItem.variant}
-                                       task={task}
-                                       onClose={onClose}
-                                       handlerMenuItem={handlerMenuItem} />
-                                 )
-                              })
-                           }
-                        </Stack>
-                     </PopoverBody>
-                     {
-                        repeatTask.isRepeat ?
-                           <PopoverFooter p={2}>
-                              <Button bg={'red.500'}
-                                 color={'white'}
-                                 colorScheme='red'
-                                 w={'100%'}
-                                 onClick={() => deleteRepeat(dispatch, onClose)}
-                              >
-                                 Удалить дату
-                              </Button>
-                           </PopoverFooter>
-                        : <></>
-                     }
-               </PopoverContent>
-            </Portal>
+            <PopoverContent w={'auto'}>
+               <PopoverArrow />
+               <PopoverHeader textAlign={'center'}>
+                  Повтор
+               </PopoverHeader>
+                  <PopoverBody p={0}>
+                     <Stack direction={'column'} gap={0}>
+                        {
+                           taskMenuItems.map((taskMenuItem, index): ReactElement => {
+                              return (
+                                 <CreateTaskMenuItem key={index}
+                                    icon={taskMenuItem.icon}
+                                    title={taskMenuItem.title}
+                                    dayShortName={taskMenuItem.dayShortName}
+                                    variant={taskMenuItem.variant}
+                                    task={task}
+                                    onClose={onClose}
+                                    handlerMenuItem={handlerMenuItem} />
+                              )
+                           })
+                        }
+                     </Stack>
+                  </PopoverBody>
+                  {
+                     repeatTask.isRepeat ?
+                        <PopoverFooter p={2}>
+                           <Button bg={'red.500'}
+                              color={'white'}
+                              colorScheme='red'
+                              w={'100%'}
+                              onClick={() => deleteRepeat(dispatch, onClose)}
+                           >
+                              Удалить дату
+                           </Button>
+                        </PopoverFooter>
+                     : <></>
+                  }
+            </PopoverContent>
          </Popover>
       </>
    )

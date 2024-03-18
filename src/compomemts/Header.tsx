@@ -1,13 +1,17 @@
-import { Box, Highlight, Icon, Input, InputGroup, InputRightElement, Stack, Text } from "@chakra-ui/react";
+import { Box, Highlight, Icon, Stack, Text, useMediaQuery } from "@chakra-ui/react";
 import { FC, ReactElement } from "react";
-import { ImSearch } from "react-icons/im";
-import { CiSettings } from "react-icons/ci";
 import { ChangeColorMode } from "./ChangeColorMode";
 import { LuListTodo } from "react-icons/lu";
 import { SearchBar } from "./SearchBar";
+import { NavBarMobile } from "./NavBarMobile";
+import { WIDTH_450_PX } from "../constants/windowWidth";
 
 
 export const Header: FC = (): ReactElement => {
+
+   const [isSmallerThan450Px] = useMediaQuery(`(max-width: ${WIDTH_450_PX})`);
+   
+   const title: string = isSmallerThan450Px ? '' : 'TODO: list'
    return (
       <Box as='header' p={2}>
          <Stack direction={'row'} justify={'space-between'} align={'center'}>
@@ -15,16 +19,16 @@ export const Header: FC = (): ReactElement => {
                <Icon as={LuListTodo} boxSize={8} color={'white'} />
                <Text color={'white'}>
                   <Highlight query={'TODO:'} styles={{ color: 'white', fontWeight: 800 }}>
-                     TODO: list
+                     {title}
                   </Highlight>
                </Text>
             </Stack>
             <Box w={'50%'}>
                <SearchBar />
             </Box>
-            <Stack direction={'row'}>
-               {/* <Icon as={CiSettings} boxSize={8} color={'white'} cursor={'pointer'} /> */}
+            <Stack direction={'row'} align={'center'}>
                <ChangeColorMode />
+               <NavBarMobile />
             </Stack>
          </Stack>
       </Box>

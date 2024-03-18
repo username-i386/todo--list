@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/react";
+import { Box, Hide, Show } from "@chakra-ui/react";
 import { FC, ReactElement } from "react";
 import { CreateTask } from "./CreateTask";
 import { TaskListMenu } from "./TaskListMenu";
@@ -9,6 +9,8 @@ import { AppDispatch, RootState } from "../redux/store";
 import { deleteCompletedTask } from "../utils/deleteCompletedTask";
 import { moveTaskFromMyDayToTasks } from "../utils/moveTaskFtomMyDayToTasks";
 import { SEARCH_LIST } from "../constants/tasksListName";
+import { TaskSettingsMenuMobile } from "./TaskSettingsMenuMobile";
+import { WIDTH_900_PX } from "../constants/windowWidth";
 
 
 export const MainContent: FC<IMainContentProps> = ({
@@ -38,6 +40,9 @@ export const MainContent: FC<IMainContentProps> = ({
                <TaskListMenu listName={SEARCH_LIST} />
             </Box>
          }
+         <Show breakpoint={`(max-width: ${WIDTH_900_PX})`}>
+            <TaskSettingsMenuMobile />
+         </Show>
       </>
       
    )

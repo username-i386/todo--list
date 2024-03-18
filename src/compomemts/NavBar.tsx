@@ -1,4 +1,4 @@
-import { Box, Icon, Stack, Text } from "@chakra-ui/react";
+import { Box, Icon, Stack, Text, useMediaQuery } from "@chakra-ui/react";
 import { FC, ReactElement, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { GoSun } from "react-icons/go";
@@ -9,6 +9,7 @@ import { PiHouse } from "react-icons/pi";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { ToggleMenuIcon } from "./ToggleMenuIcon";
+import { WIDTH_1150_PX } from "../constants/windowWidth";
 
 export const NavBar: FC = (): ReactElement => {
 
@@ -41,6 +42,10 @@ export const NavBar: FC = (): ReactElement => {
       { url: '/all',       title: 'Все',           icon: PiInfinityThin,   amountTask: tasks.allList.length },
       { url: '/tasks',     title: 'Задачи',        icon: PiHouse,          amountTask: tasks.tasksList.length },
    ];
+
+   const [isSmallerThan1150] = useMediaQuery(`(max-width: ${(WIDTH_1150_PX)})`);
+
+   if (isSmallerThan1150) return <></>
 
    return (
       <Box as='nav' display={isMenuOpen ? 'block' : 'none'}>
