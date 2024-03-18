@@ -3,16 +3,14 @@ import { FC, ReactElement } from "react";
 import { GoSun } from "react-icons/go";
 import { LiaCalendarSolid } from "react-icons/lia";
 import { PiRepeatLight } from "react-icons/pi";
-import { outputDate } from "../utils/outputDeadline";
+import { isExpiredDate, outputDate } from "../utils/outputDeadline";
 import { outputRepeatVariant } from "../utils/outputRepeatVariant";
-import { ITask } from "../redux/types";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { CgNotes } from "react-icons/cg";
+import { ITaskAttributeProps } from "./types";
 
-export interface ITaskAttributeProps {
-    task: ITask
-}
+
 export const TaskAttribute: FC<ITaskAttributeProps> = ({ task }): ReactElement => {
 
     const notes = useSelector((state: RootState) => state.notes.notes);
@@ -26,7 +24,7 @@ export const TaskAttribute: FC<ITaskAttributeProps> = ({ task }): ReactElement =
     }
 
     return (
-        <Stack direction={'row'} align={'center'} pt={1}>
+        <Stack direction={'row'} align={'center'} wrap={'wrap'} pt={1}>
             {
                 (task.list.isMyDayList) ?
                     <Stack direction={'row'} align={'center'}>
@@ -39,9 +37,11 @@ export const TaskAttribute: FC<ITaskAttributeProps> = ({ task }): ReactElement =
                 (task.planedDate?.day && task.planedDate.month && task.planedDate.year) ?
                     <Stack direction={'row'} align={'center'} gap={2}>
                         <Icon as={LiaCalendarSolid} boxSize={4} />
-                        <Text fontSize={'xs'}>
+                        <Text fontSize={'xs'} 
+                            color={isExpiredDate(task.planedDate) ? 'tomato' : ''}
+                        >
                             {
-                                outputDate(task.planedDate, true)
+                                outputDate(task.planedDate, false)
                             }
                         </Text>
                     </Stack>

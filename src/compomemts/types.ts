@@ -100,3 +100,7 @@ export interface IMainContentProps {
    icon: FC
    listName: string
 }
+
+export interface ITaskAttributeProps {
+   task: ITask
+}
