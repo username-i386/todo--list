@@ -1,4 +1,4 @@
-import { Button, Icon, Input, Stack } from "@chakra-ui/react";
+import { Icon, IconButton, Input, Stack } from "@chakra-ui/react";
 import { FC, ReactElement, useEffect, useState } from "react";
 import { IAddPlanedDateToTaskProps } from "./types";
 import { LiaCalendarSolid } from "react-icons/lia";
@@ -7,8 +7,9 @@ import { AppDispatch } from "../redux/store";
 import { useDispatch } from "react-redux";
 import { addTaskToList } from "../utils/addTaskToList";
 import { deleteTaskToList } from "../utils/deleteTaskToList";
-import { toggleTaskMenu } from "../redux/slices/taskMenuSlice";
 import { updateTaskInSettingsBar } from "../utils/updateTaskInSettingsBar";
+import { BiSave } from "react-icons/bi";
+import { checkValidInputValue } from "../utils/checkValidInputValue";
 
 
 export const AddPlanedDateToTask: FC<IAddPlanedDateToTaskProps> = ({ task }): ReactElement => {
@@ -16,6 +17,7 @@ export const AddPlanedDateToTask: FC<IAddPlanedDateToTaskProps> = ({ task }): Re
     const dispatch: AppDispatch = useDispatch();
 
     const [defaultDateValue, setDefaultDateValue] = useState('');
+    const [datePlanedTask, setDatePlanedTask] = useState<IDate | undefined>(undefined);
 
     useEffect(() => {
         if (task.planedDate) {
@@ -29,23 +31,29 @@ export const AddPlanedDateToTask: FC<IAddPlanedDateToTaskProps> = ({ task }): Re
     }, [task.planedDate])
 
     function addPlanedDateToTask() {
-        const dateInput = document.querySelector('#dateInput') as HTMLInputElement;
-        const datePlanedTask: IDate = {
-            year: +dateInput.value.split('-')[0],
-            month: +dateInput.value.split('-')[1],
-            day: +dateInput.value.split('-')[2],
+        if (checkValidInputValue(datePlanedTask)) {
+            const updatedTask: ITask = {
+                ...task,
+                planedDate: datePlanedTask,
+                list: {
+                    ...task.list,
+                    isPlanedList: true,
+                },
+            }
+            deleteTaskToList(updatedTask, dispatch);
+            addTaskToList(updatedTask, dispatch);
+            updateTaskInSettingsBar(dispatch, updatedTask);
         }
-        const updatedTask: ITask = {
-            ...task,
-            planedDate: datePlanedTask,
-            list: {
-                ...task.list,
-                isPlanedList: true,
-            },
-        }
-        deleteTaskToList(updatedTask, dispatch);
-        addTaskToList(updatedTask, dispatch);
-        updateTaskInSettingsBar(dispatch, updatedTask);
+    }
+
+    function changePlanedDate(event: React.ChangeEvent<HTMLInputElement>) {
+        const target = event.target as HTMLInputElement;
+
+        setDatePlanedTask({
+            year: +target.value.split('-')[0],
+            month: +target.value.split('-')[1],
+            day: +target.value.split('-')[2],
+        });
     }
 
 
@@ -59,15 +67,17 @@ export const AddPlanedDateToTask: FC<IAddPlanedDateToTaskProps> = ({ task }): Re
                     placeholder="Select Date and Time"
                     defaultValue={defaultDateValue}
                     size="md"
-                    type="date" />
+                    type="date"
+                    onChange={e => changePlanedDate(e)} />
             </Stack>
             <Stack>
-                <Button colorScheme='blue' 
+                <IconButton 
                     bg={'blue.500'} 
                     color={'white'}
-                    onClick={addPlanedDateToTask}>
-                    Сохранить
-                </Button>
+                    colorScheme='blue'
+                    aria-label='Save date'
+                    icon={<BiSave />}
+                    onClick={addPlanedDateToTask} />
             </Stack>
         </Stack>
     )

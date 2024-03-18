@@ -1,7 +1,7 @@
-import { Button, Text, Input, Icon, IconButton, Popover, PopoverArrow, PopoverBody, PopoverCloseButton, PopoverContent, PopoverFooter, PopoverHeader, PopoverTrigger, Portal, useDisclosure, Box, Stack } from "@chakra-ui/react";
-import { FC, ReactElement, useEffect, useState } from "react";
+import { Button, Text, Input, Icon, Popover, PopoverArrow, PopoverBody, PopoverCloseButton, PopoverContent, PopoverFooter, PopoverHeader, PopoverTrigger, Portal, useDisclosure, Box, Stack } from "@chakra-ui/react";
+import { FC, ReactElement, useState } from "react";
 import { LiaCalendarSolid } from "react-icons/lia";
-import { TbCalendarPlus, TbCalendarShare, TbCalendarOff, TbCalendarDue } from "react-icons/tb";
+import { TbCalendarPlus, TbCalendarShare, TbCalendarDue } from "react-icons/tb";
 import { CreateTaskMenuItem } from "./TaskMenuItem";
 import { PLANED_NEXT_WEEK, PLANED_TODAY, PLANED_TOMORROW } from "../constants/createTaskMenuItemsVariant";
 import { getLocalDate } from "../utils/getLocalDate";
@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setPlanedToTask } from "../redux/slices/planedTaskSlice";
 import { IDate } from "../redux/types";
 import { outputDate } from "../utils/outputDeadline";
+import { checkValidInputValue } from "../utils/checkValidInputValue";
 
 
 
@@ -21,20 +22,9 @@ export const PlanedTaskMenu: FC = (): ReactElement => {
 
    const [invalidInputValue, setInvalidInputValue] = useState<boolean>(false);
 
-   function checkValidInputValue(dateInput: HTMLInputElement, datePlanedTask: IDate): void {
-      /*
-         !Добавить проверку, чтобы дата была не раньше, чем сегодня
-      */
-      if (dateInput.value !== undefined) {
-         if (0 < datePlanedTask.day && datePlanedTask.day <= 31) {
-            if (0 < datePlanedTask.month && datePlanedTask.month <= 12) {
-               if (datePlanedTask.year >= getLocalDate().today.year) {
-                  setInvalidInputValue(false);
-               }
-            }
-         } else {
-            setInvalidInputValue(true);
-         }
+   function setInvalidInput(dateInput: HTMLInputElement, datePlanedTask: IDate): void {
+      if (checkValidInputValue(datePlanedTask)) {
+         setInvalidInputValue(true);
       } else {
          setInvalidInputValue(false);
       }
@@ -58,10 +48,13 @@ export const PlanedTaskMenu: FC = (): ReactElement => {
             dispatch(setPlanedToTask(dateToday));
             break;
          case PLANED_TOMORROW:
-            dispatch(setPlanedToTask(getLocalDate().getFutureDate(1)));
+            const tomorrowDate: IDate = getLocalDate().getFutureDate(1);
+            dispatch(setPlanedToTask(tomorrowDate));
             break;
          case PLANED_NEXT_WEEK:
-            dispatch(setPlanedToTask(getLocalDate().getFutureDate(getLocalDate().daysUntilMonday())));
+            const amountDaysUntilMonday: number = getLocalDate().daysUntilMonday();
+            const nextMondayDate: IDate = getLocalDate().getFutureDate(amountDaysUntilMonday);
+            dispatch(setPlanedToTask(nextMondayDate));
             break;
       }
       onClose();
@@ -76,11 +69,13 @@ export const PlanedTaskMenu: FC = (): ReactElement => {
          day: +dateInput.value.split('-')[2],
       }
 
-      checkValidInputValue(dateInput, datePlanedTask);
+      setInvalidInput(dateInput, datePlanedTask);
 
       if (datePlanedTask.day && datePlanedTask.month && datePlanedTask.year) {
-         dispatch(setPlanedToTask(datePlanedTask));
-         onClose();
+         if (checkValidInputValue(datePlanedTask)) {
+            dispatch(setPlanedToTask(datePlanedTask));
+            onClose();
+         }
       }
    }
 
@@ -113,7 +108,7 @@ export const PlanedTaskMenu: FC = (): ReactElement => {
                            <Icon as={LiaCalendarSolid} boxSize={5} />
                            <Text fontSize={'xs'}>
                               {
-                                 outputDate(planedTaskDate, true)
+                                 outputDate(planedTaskDate, false)
                               }
                            </Text>
                         </Stack>
