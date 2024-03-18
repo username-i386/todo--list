@@ -25,7 +25,7 @@ export const CreateTask: FC<ICreateTaskProps> = ({ listName }): ReactElement => 
    const repeatTask = useSelector((state: RootState) => state.repeatTask.repeatTask);
 
 
-   const [taskTitle, setTaskTitle] = useState('');
+   const [taskTitle, setTaskTitle] = useState<string>('');
 
    const todayDate: IDate = {
       year: getLocalDate().today.year,
@@ -110,8 +110,8 @@ export const CreateTask: FC<ICreateTaskProps> = ({ listName }): ReactElement => 
                onKeyDown={e => handleKeyboardEnter(e)}
             />
          </InputGroup>
-         <Stack direction={'row'} justify={'space-between'} align={'center'} p={2}>
-            <Stack direction={'row'} align={'center'}>
+         <Stack direction={'row'} justify={'space-between'} align={'center'} wrap={'wrap'} p={2}>
+            <Stack direction={'row'} align={'center'} wrap={'wrap'}>
                <PlanedTaskMenu />
                <RepeatTaskMenu taskMenuItems={REPEAT_TASK_MENU_ITEMS} 
                   handlerMenuItem={handlerToRepeatTaskMenu}
