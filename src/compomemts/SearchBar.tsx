@@ -16,18 +16,20 @@ export const SearchBar: FC = (): ReactElement => {
     const [searchTitle, setSearchTitle] = useState<string>('');
 
     useEffect(() => {
-        if (searchTitle === '') {
+        if (searchTitle.trim() === '') {
             dispatch(deleteSearchList());
         }
     }, [searchTitle])
 
 
     function searchTaskInList() {
-        const searchRequest: ISearchRequest = {
-            searchTitle,
-            tasksList: allTasks,
+        if (searchTitle.trim() !== '') {
+            const searchRequest: ISearchRequest = {
+                searchTitle,
+                tasksList: allTasks,
+            }
+            dispatch(searchTask(searchRequest));
         }
-        dispatch(searchTask(searchRequest));
     }
 
     function handlerSearchBarKeyboard(event: React.KeyboardEvent<HTMLInputElement>) {

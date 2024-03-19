@@ -68,20 +68,12 @@ export const CreateTask: FC<ICreateTaskProps> = ({ listName }): ReactElement => 
 
    function handleKeyboardEnter(e: React.KeyboardEvent<HTMLInputElement>) {
       if (e.code === 'Enter') {
-         addTaskToList(createTask(), dispatch);
-         setTaskTitle('');
-
-         dispatch(setPlanedToTask(undefined));
-         dispatch(setRepeatToTask({
-            isRepeat: false,
-            nextDateRepeat: undefined,
-            repeatVariant: '',
-         }))
+         addTask();
       } 
    }
 
-   function handleAddButton() {
-      if (taskTitle !== '') {
+   function addTask() {
+      if (taskTitle.trim() !== '') {
          addTaskToList(createTask(), dispatch);
          setTaskTitle('');
    
@@ -92,7 +84,6 @@ export const CreateTask: FC<ICreateTaskProps> = ({ listName }): ReactElement => 
             repeatVariant: '',
          }))
       }
-      
    }
 
    return (
@@ -121,8 +112,8 @@ export const CreateTask: FC<ICreateTaskProps> = ({ listName }): ReactElement => 
                <Button size={'sm'}
                   variant='outline'
                   colorScheme={'blue'}
-                  onClick={handleAddButton}
-                  isDisabled={taskTitle === '' ? true : false}
+                  onClick={addTask}
+                  isDisabled={taskTitle.trim() === '' ? true : false}
                >
                   Добавить
                </Button>
