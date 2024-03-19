@@ -3,12 +3,13 @@ import { FC, ReactElement } from "react";
 import { GoSun } from "react-icons/go";
 import { LiaCalendarSolid } from "react-icons/lia";
 import { PiRepeatLight } from "react-icons/pi";
-import { isExpiredDate, outputDate } from "../utils/outputDeadline";
+import { outputDate } from "../utils/outputDeadline";
 import { outputRepeatVariant } from "../utils/outputRepeatVariant";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { CgNotes } from "react-icons/cg";
 import { ITaskAttributeProps } from "./types";
+import { isExpiredDate } from "../utils/checkIsExpiredDate";
 
 
 export const TaskAttribute: FC<ITaskAttributeProps> = ({ task }): ReactElement => {
