@@ -7,7 +7,6 @@ import { outputDate } from "../utils/outputDeadline";
 import { AppDispatch } from "../redux/store";
 import { useDispatch } from "react-redux";
 import { toggleTaskMenu } from "../redux/slices/taskMenuSlice";
-import { deleteTaskToList } from "../utils/deleteTaskToList";
 import { ConfirmDeletionModal } from "./ConfirmDeletionModal";
 
 

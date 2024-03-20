@@ -1,6 +1,5 @@
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, Button } from "@chakra-ui/react";
 import { FC, ReactElement } from "react";
-import { ISubtask } from "../redux/types";
 import { AppDispatch } from "../redux/store";
 import { useDispatch } from "react-redux";
 import { deleteSubtask } from "../redux/slices/subtasksSlice";

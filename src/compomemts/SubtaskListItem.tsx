@@ -1,10 +1,9 @@
 import { Box, Button, Icon, Stack, useDisclosure } from "@chakra-ui/react";
 import { FC, ReactElement } from "react";
 import { FaCheck } from "react-icons/fa";
-import { ISubtask } from "../redux/types";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../redux/store";
-import { deleteSubtask, toggleCompleteSubTask } from "../redux/slices/subtasksSlice";
+import { toggleCompleteSubTask } from "../redux/slices/subtasksSlice";
 import { ISubtaskListItemProps } from "./types";
 import { ConfirmDeletionModal } from "./ConfirmDeletionModal";
 

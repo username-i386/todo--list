@@ -1,4 +1,4 @@
-import { Button,  IconButton,  Menu, MenuButton, MenuItem, MenuList, Show, Stack } from "@chakra-ui/react";
+import { IconButton,  Menu, MenuButton, MenuItem, MenuList, Show } from "@chakra-ui/react";
 import { FC, ReactElement } from "react";
 import { FaHamburger } from "react-icons/fa";
 import { WIDTH_1150_PX } from "../constants/windowWidth";

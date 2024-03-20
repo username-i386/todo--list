@@ -1,4 +1,4 @@
-import { addTaskInMyDayList, removeTaskInRepeatList } from "../redux/slices/tasksSlice";
+import { removeTaskInRepeatList } from "../redux/slices/tasksSlice";
 import { AppDispatch } from "../redux/store";
 import { IDate, ITask } from "../redux/types";
 import { changeRepeatToTask } from "./changeRepeatToTask";

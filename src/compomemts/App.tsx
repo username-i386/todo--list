@@ -13,8 +13,6 @@ import { WIDTH_1150_PX, WIDTH_900_PX } from "../constants/windowWidth";
 export const App: FC = (): ReactElement => {
 
   const states = useSelector((state: RootState) => state);
-  console.log(states.tasksSLice);
-  
 
   useEffect(() => {
     setTaskListsToLocalStorage(states.tasksSLice);

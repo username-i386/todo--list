@@ -4,7 +4,6 @@ import { addTaskInRepeatList,
     removeTaskInImportantList, 
     removeTaskInMyDayList, 
     removeTaskInPlanedList, 
-    removeTaskInRepeatList, 
     removeTaskInTasksList } from "../redux/slices/tasksSlice";
 import { AppDispatch } from "../redux/store";
 import { ITask } from "../redux/types";

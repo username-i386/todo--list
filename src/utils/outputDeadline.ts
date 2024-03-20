@@ -5,7 +5,6 @@ import { getLocalDate } from "./getLocalDate";
 
 export function outputDate(planedTaskDate: IDate, isCreatedDate: boolean): string {
 
-   // const title: string = isCreatedDate ? 'Срок' : 'Cоздано';
    const today: IDate = getLocalDate().today;
 
    if (planedTaskDate?.year === today.year) {

@@ -1,4 +1,4 @@
-import { Box, Hide, Show } from "@chakra-ui/react";
+import { Box, Show } from "@chakra-ui/react";
 import { FC, ReactElement } from "react";
 import { CreateTask } from "./CreateTask";
 import { TaskListMenu } from "./TaskListMenu";

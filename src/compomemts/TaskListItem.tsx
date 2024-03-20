@@ -3,8 +3,7 @@ import { FC, ReactElement } from "react";
 import { ITaskListItemState } from "./types";
 import { AddImportantTask } from "./AddImportantTask";
 import { AddCompleteTask } from "./AddCompleteTask";
-import { RootState } from "../redux/store";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { toggleTaskMenu } from "../redux/slices/taskMenuSlice";
 import { TaskAttribute } from "./TaskAttributes";
 

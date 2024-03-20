@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
-import { IDate, IRepeatTask, IRepeatTaskState } from "../types"
+import { IRepeatTask, IRepeatTaskState } from "../types"
 
 
 const initialState: IRepeatTaskState = {
